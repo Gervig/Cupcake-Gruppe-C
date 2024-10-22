@@ -23,18 +23,20 @@ CREATE TABLE Orders
     customer_id INT REFERENCES Customers (customer_id) -- Reference to the Customers table
 );
 
--- Step 4: Create Toppings Table
+-- Step 4: Create Toppings Table (with Price as NUMERIC)
 CREATE TABLE Toppings
 (
-    topping_id   SERIAL PRIMARY KEY,   -- Auto-incrementing ID for toppings
-    topping_name VARCHAR(255) NOT NULL -- Name of the topping as VARCHAR (string)
+    topping_id   SERIAL PRIMARY KEY,                       -- Auto-incrementing ID for toppings
+    topping_name VARCHAR(255)  NOT NULL,                   -- Name of the topping as VARCHAR (string)
+    price        NUMERIC(5, 2) NOT NULL CHECK (price >= 0) -- Price of the topping as NUMERIC with 2 decimal places
 );
 
--- Step 5: Create Bottoms Table
+-- Step 5: Create Bottoms Table (with Price as NUMERIC)
 CREATE TABLE Bottoms
 (
-    bottom_id   SERIAL PRIMARY KEY,   -- Auto-incrementing ID for bottoms
-    bottom_name VARCHAR(255) NOT NULL -- Name of the bottom type as VARCHAR (string)
+    bottom_id   SERIAL PRIMARY KEY,                       -- Auto-incrementing ID for bottoms
+    bottom_name VARCHAR(255)  NOT NULL,                   -- Name of the bottom type as VARCHAR (string)
+    price       NUMERIC(5, 2) NOT NULL CHECK (price >= 0) -- Price of the bottom as NUMERIC with 2 decimal places
 );
 
 -- Step 6: Create OrderLine Table
