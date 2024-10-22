@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+package java{
+package app{
+class Main{}
+
+package config{
+class ThymeleafConfig{}
+}
+
+package controllers{
+class OrderController{}
+class UserController{
+
+}
+
+}
+
+package entities{
+class Bottoms{}
+class Toppings{}
+class User{}
+}
+
+package exceptions{
+class DatabaseException{}
+}
+
+package persistence{
+class ConnectionPool{}
+class UserMapper{
+-login()
+-createuser()
+}
+class OrderMapper{}
+}
+}
+}
+
+package resources{
+package public{
+package css{
+class style
+}
+package images{}
+}
+package sql{
+}
+package templates{
+class index
+
+}
+}
+}
+
+@enduml
