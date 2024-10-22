@@ -5,21 +5,46 @@ package app{
 class Main{}
 
 package config{
-class ThymeleafConfig{}
+class ThymeleafConfig{
++templateEngine()
+}
 }
 
 package controllers{
-class OrderController{}
+class OrderController{
++static void addRoutes(Javalin app, ConnectionPool connectionPool)
+-static void index(Context ctx,ConnectionPool connectionPool)
+}
 class UserController{
-
++static void AddRoutes(Javalin app, ConnectionPool connectionPool)
+-static void createuser(Context ctx, ConnectionPool connectionPool)
+-static void logout(Context ctx)
++static void login(Context ctx, ConnectionPool connectionPool)
 }
 
 }
 
 package entities{
-class Bottoms{}
-class Toppings{}
-class User{}
+class Bottoms{
+-String bottoms
++String getBottoms()}
+class Toppings{
+-String toppings
++String getToppings()}
+class User{
+-int userID
+-String userName
+-String password
+-String role
+-float balance
++int getUserID()
++String getUserName()
++String getPassword()
++String getRole()
++float getBalance()
++float addToBalance()
++float setBalance()
+}
 }
 
 package exceptions{
@@ -27,12 +52,23 @@ class DatabaseException{}
 }
 
 package persistence{
-class ConnectionPool{}
-class UserMapper{
--login()
--createuser()
+class ConnectionPool{
+-ConnectionPool()
++getInstance(String user, String password, String URL, String db)
++getConnection()
+-createHikrariConnectionPool()
 }
-class OrderMapper{}
+class UserMapper{
++static User login(String userName, String password, ConnectionPool connectionPool)
++static void createuser(String userName, String password, ConnectionPool connectionPool)
+}
+class OrderItemMapper{
++static getBottomsAndToppings
+}
+class OrderMapper{
++static getOrdersPerUser()
++static getAllOrders()
+}
 }
 }
 }
@@ -40,14 +76,14 @@ class OrderMapper{}
 package resources{
 package public{
 package css{
-class style
+object style
 }
 package images{}
 }
 package sql{
 }
 package templates{
-class index
+object index
 
 }
 }
