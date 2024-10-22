@@ -13,7 +13,10 @@ class ThymeleafConfig{
 package controllers{
 class OrderController{
 +static void addRoutes(Javalin app, ConnectionPool connectionPool)
+-static void addOrder()
+-static void showOrder()
 -static void index(Context ctx,ConnectionPool connectionPool)
+
 }
 class UserController{
 +static void AddRoutes(Javalin app, ConnectionPool connectionPool)
@@ -26,11 +29,19 @@ class UserController{
 
 package entities{
 class Bottoms{
+-int bottomsID
 -String bottoms
-+String getBottoms()}
+-float price
++int getBottomsID()
++String getBottoms()
++Float getPrice()}
 class Toppings{
+-int toppingID
 -String toppings
-+String getToppings()}
+-float price
++int getToppingID()
++String getToppings()
++Float getPrice()}
 class User{
 -int userID
 -String userName
