@@ -1,3 +1,4 @@
+-- THIS DELETES THE DB WEE WOO DANGERZONE
 -- Drop OrderLine table first (it references other tables)
 DROP TABLE IF EXISTS OrderLine;
 
