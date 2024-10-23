@@ -3,6 +3,7 @@ package app.persistence;
 import app.entities.User;
 import app.exceptions.DatabaseException;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,8 +28,45 @@ public class UserMapper
             if (rs.next())
             {
                 int id = rs.getInt("user_id");
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                String email = rs.getString("email");
+                int postcode = rs.getInt("postcode");
                 String role = rs.getString("role");
-                return new User(id, userName, password, role);
+                return new User(id, firstName, lastName, userName, email, password, postcode, role);
+            } else
+            {
+                throw new DatabaseException("Fejl i login. Prøv igen");
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException("DB fejl", e.getMessage());
+        }
+    }
+
+    public static User login(String email, String password, ConnectionPool connectionPool, boolean loginWithEmail) throws DatabaseException
+    {
+        String sql = "select * from public.\"users\" where email=? and password=?";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        )
+        {
+            ps.setString(1, email);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                int id = rs.getInt("user_id");
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                String userName = rs.getString("username");
+                int postcode = rs.getInt("postcode");
+                String role = rs.getString("role");
+                return new User(id, firstName, lastName, userName, email, password, postcode, role);
             } else
             {
                 throw new DatabaseException("Fejl i login. Prøv igen");
