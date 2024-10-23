@@ -14,26 +14,18 @@
     </a>
 </header>
 
-<div id="page-container">
-    <div id="page-content">
-        <h1>Olsker Cupcakes</h1>
+        <h1>Opret bruger</h1>
 
         <div id="centered-form">
             <form method="post">
-                <input type="text" name="firstname" placeholder="fornavn"/><br/><br>
-                <input type="text" name="lastname" placeholder="efternavn"/><br/><br>
-                <input type="text" name="username" placeholder="brugernavn"/><br/><br>
-                <input type="number" name="postcode" placeholder="postkode"/><br/><br>
+                <input type="text" name="username" placeholder="username"/><br/><br>
                 <input type="password" name="password" placeholder="password"/><br/><br>
-                <input type="password" name="password2" placeholder="gentag password"/>
 
-                <button type="submit" formaction="/login">log på</button>
+                <button type="submit" formaction="/login">Opret bruger</button>
             </form>
 
             <p class="errormessage" th:text="${#ctx.message}"></p>
         </div>
-        <a href="/createuser">Create account</a>
-    </div>
-</div>
+
 </body>
 </html>
