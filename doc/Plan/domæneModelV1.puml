@@ -1,0 +1,28 @@
+@startuml
+object User
+object Cupcakes
+object Toppings
+object Bottoms
+object Login
+object AllOrderList
+object MyOrderList
+object Order
+object StartGame
+object viewUserOrders
+object Admin
+object AddDeposit
+
+Login <--> User
+Login <--> Admin
+
+User <|-- Order
+User <|-- MyOrderList
+Order *-- Cupcakes
+Admin <|-- viewUserOrders
+AllOrderList o-- Admin
+Cupcakes *-- Toppings
+Cupcakes *-- Bottoms
+AddDeposit ..> User
+AddDeposit <|-- Admin
+
+@enduml
