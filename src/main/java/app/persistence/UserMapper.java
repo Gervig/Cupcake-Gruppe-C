@@ -14,6 +14,7 @@ public class UserMapper
 
     public static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
+        // temporarily converts the email to lowercase in both the DB and the user input
         String sql = "SELECT * FROM public.\"users\" WHERE LOWER(email) = LOWER(?) AND password = ?";
 
         try (
