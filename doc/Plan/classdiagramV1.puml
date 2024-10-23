@@ -16,6 +16,7 @@ class OrderController{
 -static void addOrder()
 -static void showOrder()
 -static void index(Context ctx,ConnectionPool connectionPool)
+-static OrderItem addOrderItem()
 
 }
 class UserController{
@@ -34,22 +35,26 @@ class Bottoms{
 -float price
 +int getBottomsID()
 +String getBottoms()
-+Float getPrice()}
++Float getPrice()
+}
 class Toppings{
 -int toppingID
 -String toppings
 -float price
 +int getToppingID()
 +String getToppings()
-+Float getPrice()}
++Float getPrice()
+}
 class User{
 -int userID
 -String userName
+-String email
 -String password
 -String role
 -float balance
 +int getUserID()
 +String getUserName()
++String getEmail()
 +String getPassword()
 +String getRole()
 +float getBalance()
@@ -79,6 +84,7 @@ class OrderItemMapper{
 class OrderMapper{
 +static getOrdersPerUser()
 +static getAllOrders()
++static void newOrder()
 }
 }
 }
@@ -95,7 +101,11 @@ package sql{
 }
 package templates{
 object index
-
+object createuser
+object login
+object orderCupcakes
+object seeOrders
+object orderedCupcakes
 }
 }
 }
