@@ -17,7 +17,7 @@ public class UserController
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
     }
 
-    private static void createUser(Context ctx, ConnectionPool connectionPool)
+    public static void createUser(Context ctx, ConnectionPool connectionPool)
     {
         // Hent form parametre
         String firstName = ctx.formParam("firstName");

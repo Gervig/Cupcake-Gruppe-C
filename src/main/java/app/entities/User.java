@@ -5,26 +5,26 @@ import java.math.BigDecimal;
 public class User
 {
     private int userId;
-    private String userName;
-    private String password;
-    private String role;
     private String firstName;
     private String lastName;
+    private String userName;
     private String email;
+    private String password;
     private BigDecimal balance;
     private int postcode;
+    private String role;
 
-    public User(int userId, String userName, String password, String role, String firstName, String lastName, String email, BigDecimal balance, int postcode)
+    public User(int userId, String firstName, String lastName, String userName, String email, String password, BigDecimal balance, int postcode, String role)
     {
         this.userId = userId;
-        this.userName = userName;
-        this.password = password;
-        this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userName = userName;
         this.email = email;
+        this.password = password;
         this.balance = balance;
         this.postcode = postcode;
+        this.role = role;
     }
 
     public int getUserId()

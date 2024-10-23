@@ -31,8 +31,10 @@ public class UserMapper
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String email = rs.getString("email");
+                BigDecimal balance = rs.getBigDecimal("balance");
                 int postcode = rs.getInt("postcode");
-                return new User(id, firstName, lastName, userName, email, password, postcode);
+                String role = rs.getString("role");
+                return new User(id, firstName, lastName, userName, email, password, balance, postcode, role);
             } else
             {
                 throw new DatabaseException("Fejl i login. Prøv igen");
@@ -63,8 +65,10 @@ public class UserMapper
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String userName = rs.getString("username");
+                BigDecimal balance = rs.getBigDecimal("balance");
                 int postcode = rs.getInt("postcode");
-                return new User(id, firstName, lastName, userName, email, password, postcode);
+                String role = rs.getString("role");
+                return new User(id, firstName, lastName, userName, email, password, balance, postcode, role);
             } else
             {
                 throw new DatabaseException("Fejl i login. Prøv igen");
