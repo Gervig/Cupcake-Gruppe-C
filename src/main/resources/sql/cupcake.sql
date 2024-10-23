@@ -21,8 +21,8 @@ CREATE TABLE Customers
     last_name   VARCHAR(255)        NOT NULL,                    -- Customer's last name as VARCHAR (string)
     postcode    INT REFERENCES Cities (postcode),                -- Reference to the Cities table with 4-digit check
     role        VARCHAR(255)        NOT NULL DEFAULT 'customer', -- Role column with default value 'customer'
-    username    VARCHAR(255) UNIQUE NOT NULL,                    -- Username must be unique
-    email       VARCHAR(255) UNIQUE NOT NULL,                    -- Email must be unique
+    username    VARCHAR(255) UNIQUE NOT NULL,           		 -- Username must be unique
+    email       VARCHAR(255) UNIQUE NOT NULL,         		     -- Email must be unique
     password    VARCHAR(255)        NOT NULL,                    -- Password for customer login
     balance     NUMERIC(10, 2)      NOT NULL DEFAULT 0.00        -- Account balance with 2 decimal places, default to 0.00
 );
