@@ -12,43 +12,9 @@ import java.sql.SQLException;
 public class UserMapper
 {
 
-    public static User login(String userName, String password, ConnectionPool connectionPool) throws DatabaseException
+    public static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "select * from public.\"users\" where username=? and password=?";
-
-        try (
-                Connection connection = connectionPool.getConnection();
-                PreparedStatement ps = connection.prepareStatement(sql)
-        )
-        {
-            ps.setString(1, userName);
-            ps.setString(2, password);
-
-            ResultSet rs = ps.executeQuery();
-            if (rs.next())
-            {
-                int id = rs.getInt("user_id");
-                String firstName = rs.getString("first_name");
-                String lastName = rs.getString("last_name");
-                String email = rs.getString("email");
-                BigDecimal balance = rs.getBigDecimal("balance");
-                int postcode = rs.getInt("postcode");
-                String role = rs.getString("role");
-                return new User(id, firstName, lastName, userName, email, password, balance, postcode, role);
-            } else
-            {
-                throw new DatabaseException("Fejl i login. Prøv igen");
-            }
-        }
-        catch (SQLException e)
-        {
-            throw new DatabaseException("DB fejl", e.getMessage());
-        }
-    }
-
-    public static User login(String email, String password, ConnectionPool connectionPool, boolean loginWithEmail) throws DatabaseException
-    {
-        String sql = "select * from public.\"users\" where email=? and password=?";
+        String sql = "SELECT * FROM public.\"users\" WHERE LOWER(email) = LOWER(?) AND password = ?";
 
         try (
                 Connection connection = connectionPool.getConnection();
@@ -73,8 +39,7 @@ public class UserMapper
             {
                 throw new DatabaseException("Fejl i login. Prøv igen");
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             throw new DatabaseException("DB fejl", e.getMessage());
         }
@@ -103,8 +68,7 @@ public class UserMapper
             {
                 throw new DatabaseException("Fejl ved oprettelse af ny bruger");
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             String msg = "Der er sket en fejl. Prøv igen";
             if (e.getMessage().startsWith("ERROR: duplicate key value "))
