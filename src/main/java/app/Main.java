@@ -27,6 +27,8 @@ public class Main
 
         // Routing
         app.get("/", ctx -> ctx.render("index.html"));
+        app.get("login", ctx -> ctx.render("login.html"));
+        app.get("createUser", ctx -> ctx.render("createUser.html"));
 
         UserController.addRoutes(app, connectionPool);
     }
