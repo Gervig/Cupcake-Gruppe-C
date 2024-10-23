@@ -1,0 +1,113 @@
+@startuml
+'https://plantuml.com/class-diagram
+package java{
+package app{
+class Main{}
+
+package config{
+class ThymeleafConfig{
++templateEngine()
+}
+}
+
+package controllers{
+class OrderController{
++static void addRoutes()
+-static void addOrder()
+-static void showOrder()
+-static void index()
+-static OrderItem addOrderItem()
+
+}
+class UserController{
++static void AddRoutes()
+-static void createuser()
+-static void logout()
++static void login()
+}
+
+}
+
+package entities{
+class Bottoms{
+-int bottomsID
+-String bottoms
+-float price
++int getBottomsID()
++String getBottoms()
++Float getPrice()
+}
+class Toppings{
+-int toppingID
+-String toppings
+-float price
++int getToppingID()
++String getToppings()
++Float getPrice()
+}
+class User{
+-int userID
+-String userName
+-String email
+-String password
+-String role
+-float balance
++int getUserID()
++String getUserName()
++String getEmail()
++String getPassword()
++String getRole()
++float getBalance()
++float addToBalance()
++float setBalance()
+}
+}
+
+package exceptions{
+class DatabaseException{}
+}
+
+package persistence{
+class ConnectionPool{
+-ConnectionPool()
++getInstance()
++getConnection()
+-createHikrariConnectionPool()
+}
+class UserMapper{
++static User login()
++static void createuser()
+}
+class OrderItemMapper{
++static getBottomsAndToppings
+}
+class OrderMapper{
++static getOrdersPerUser()
++static getAllOrders()
++static void newOrder()
+}
+}
+}
+}
+
+package resources{
+package public{
+package css{
+object style
+}
+package images{}
+}
+package sql{
+}
+package templates{
+object index
+object createuser
+object login
+object orderCupcakes
+object seeOrders
+object orderedCupcakes
+}
+}
+}
+
+@enduml
