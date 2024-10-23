@@ -8,10 +8,59 @@ CREATE TABLE Cities
 );
 
 -- Inserting data into the Cities table
+-- Insert Danish cities and their postcodes into the Cities table
 INSERT INTO Cities (postcode, city_name)
-VALUES (1234, 'City A'), -- Example 4-digit postcodes
-       (5432, 'City B'),
-       (6789, 'City C');
+VALUES (1050, 'København K'),
+       (1300, 'København K'),
+       (2000, 'Frederiksberg'),
+       (2100, 'København Ø'),
+       (2200, 'København N'),
+       (2300, 'København S'),
+       (2400, 'København NV'),
+       (2500, 'Valby'),
+       (2600, 'Glostrup'),
+       (2620, 'Albertslund'),
+       (2630, 'Taastrup'),
+       (2650, 'Hvidovre'),
+       (2700, 'Brønshøj'),
+       (2800, 'Kongens Lyngby'),
+       (2820, 'Gentofte'),
+       (2900, 'Hellerup'),
+       (2920, 'Charlottenlund'),
+       (3000, 'Helsingør'),
+       (3050, 'Humlebæk'),
+       (3100, 'Hornbæk'),
+       (3400, 'Hillerød'),
+       (3450, 'Allerød'),
+       (3460, 'Birkerød'),
+       (3500, 'Værløse'),
+       (3600, 'Frederikssund'),
+       (4000, 'Roskilde'),
+       (4100, 'Ringsted'),
+       (4200, 'Slagelse'),
+       (4300, 'Holbæk'),
+       (4400, 'Kalundborg'),
+       (5000, 'Odense C'),
+       (5100, 'Odense M'),
+       (5200, 'Odense V'),
+       (6000, 'Kolding'),
+       (6700, 'Esbjerg'),
+       (7100, 'Vejle'),
+       (8000, 'Aarhus C'),
+       (8200, 'Aarhus N'),
+       (8260, 'Viby J'),
+       (9000, 'Aalborg');
+
+-- Bornholm Cities
+    (3700, 'Rønne'),
+    (3720, 'Aakirkeby'),
+    (3730, 'Nexø'),
+    (3740, 'Svaneke'),
+    (3751, 'Østermarie'),
+    (3760, 'Gudhjem'),
+    (3770, 'Allinge'),
+    (3782, 'Klemensker'),
+    (3790, 'Hasle');
 
 -- Step 3: Create Customers Table (with Role, Username, Email, Password, and Balance)
 CREATE TABLE Customers
@@ -21,8 +70,8 @@ CREATE TABLE Customers
     last_name   VARCHAR(255)        NOT NULL,                    -- Customer's last name as VARCHAR (string)
     postcode    INT REFERENCES Cities (postcode),                -- Reference to the Cities table with 4-digit check
     role        VARCHAR(255)        NOT NULL DEFAULT 'customer', -- Role column with default value 'customer'
-    username    VARCHAR(255) UNIQUE NOT NULL,           		 -- Username must be unique
-    email       VARCHAR(255) UNIQUE NOT NULL,         		     -- Email must be unique
+    username    VARCHAR(255) UNIQUE NOT NULL,                    -- Username must be unique
+    email       VARCHAR(255) UNIQUE NOT NULL,                    -- Email must be unique
     password    VARCHAR(255)        NOT NULL,                    -- Password for customer login
     balance     NUMERIC(10, 2)      NOT NULL DEFAULT 0.00        -- Account balance with 2 decimal places, default to 0.00
 );
@@ -30,7 +79,9 @@ CREATE TABLE Customers
 -- Inserting sample data into the Customers table
 INSERT INTO Customers (first_name, last_name, postcode, role, username, email, password, balance)
 VALUES ('John', 'Doe', 1234, 'customer', 'john_doe', 'john@example.com', 'hashed_password_1', 50.00),
-       ('Jane', 'Smith', 5432, 'customer', 'jane_smith', 'jane@example.com', 'hashed_password_2', 75.00);
+       ('Jane', 'Smith', 5432, 'customer', 'jane_smith', 'jane@example.com', 'hashed_password_2', 75.00),
+       ('Casper', 'Gervig', 2400, 'customer', 'casper', 'gervig91@gmail.com', '1234', 1000.00),
+       ('Casper', 'Gervig', 2400, 'admin', 'casper_admin', 'cph-cg201@cphbusiness.dk', '1234', 0.00);
 
 -- Step 4: Create Orders Table
 CREATE TABLE Orders
