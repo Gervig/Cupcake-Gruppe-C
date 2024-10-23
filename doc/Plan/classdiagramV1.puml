@@ -12,18 +12,18 @@ class ThymeleafConfig{
 
 package controllers{
 class OrderController{
-+static void addRoutes(Javalin app, ConnectionPool connectionPool)
++static void addRoutes()
 -static void addOrder()
 -static void showOrder()
--static void index(Context ctx,ConnectionPool connectionPool)
+-static void index()
 -static OrderItem addOrderItem()
 
 }
 class UserController{
-+static void AddRoutes(Javalin app, ConnectionPool connectionPool)
--static void createuser(Context ctx, ConnectionPool connectionPool)
--static void logout(Context ctx)
-+static void login(Context ctx, ConnectionPool connectionPool)
++static void AddRoutes()
+-static void createuser()
+-static void logout()
++static void login()
 }
 
 }
@@ -70,13 +70,13 @@ class DatabaseException{}
 package persistence{
 class ConnectionPool{
 -ConnectionPool()
-+getInstance(String user, String password, String URL, String db)
++getInstance()
 +getConnection()
 -createHikrariConnectionPool()
 }
 class UserMapper{
-+static User login(String userName, String password, ConnectionPool connectionPool)
-+static void createuser(String userName, String password, ConnectionPool connectionPool)
++static User login()
++static void createuser()
 }
 class OrderItemMapper{
 +static getBottomsAndToppings
