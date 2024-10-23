@@ -8,6 +8,11 @@
 </head>
 
 <body>
+<header>
+    <a href="index.html" th:href="@{/}">
+        <img alt="logo" src="public/images/headerImage.png" th:src="@{images/headerImage.png}"/>
+    </a>
+</header>
 
 <div id="page-container">
     <div id="page-content">
@@ -22,7 +27,7 @@
                 <input type="password" name="password" placeholder="password"/><br/><br>
                 <input type="password" name="password2" placeholder="gentag password"/>
 
-                <button type="submit" formaction="/createuser">Log på</button>
+                <button type="submit" formaction="/login">log på</button>
             </form>
 
             <p class="errormessage" th:text="${#ctx.message}"></p>
