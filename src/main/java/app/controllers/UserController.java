@@ -42,9 +42,7 @@ public class UserController
                 ctx.attribute("message", "Du er hermed oprettet med brugernavn: " + userName +
                         ". Nu skal du logge på.");
                 ctx.render("index.html");
-            }
-
-            catch (DatabaseException e)
+            } catch (DatabaseException e)
             {
                 ctx.attribute("message", "Dit brugernavn findes allerede. Prøv igen, eller log ind");
                 ctx.render("createuser.html");
@@ -68,7 +66,10 @@ public class UserController
     {
         // Hent form parametre
         String username = ctx.formParam("username");
+//        String email = ctx.formParam("email");
         String password = ctx.formParam("password");
+
+        //TODO kunne logge ind med email også
 
         // Check om bruger findes i DB med de angivne username + password
         try
@@ -77,12 +78,11 @@ public class UserController
             ctx.sessionAttribute("currentUser", user);
             // Hvis ja, send videre til forsiden med login besked
             ctx.attribute("message", "Du er nu logget ind");
-            ctx.render("index.html");
-        }
-        catch (DatabaseException e)
+            ctx.render("login.html");
+        } catch (DatabaseException e)
         {
             // Hvis nej, send tilbage til login side med fejl besked
-            ctx.attribute("message", e.getMessage() );
+            ctx.attribute("message", e.getMessage());
             ctx.render("index.html");
         }
 
