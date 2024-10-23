@@ -14,9 +14,8 @@ public class User
     private BigDecimal balance;
     private int postcode;
 
-    public User(int userId, String firstName, String lastName, String userName, String email, String password, int postcode, String role)
+    public User(int userId, String userName, String password, String role, String firstName, String lastName, String email, BigDecimal balance, int postcode)
     {
-        balance = BigDecimal.valueOf(500.00);
         this.userId = userId;
         this.userName = userName;
         this.password = password;

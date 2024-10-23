@@ -32,8 +32,7 @@ public class UserMapper
                 String lastName = rs.getString("last_name");
                 String email = rs.getString("email");
                 int postcode = rs.getInt("postcode");
-                String role = rs.getString("role");
-                return new User(id, firstName, lastName, userName, email, password, postcode, role);
+                return new User(id, firstName, lastName, userName, email, password, postcode);
             } else
             {
                 throw new DatabaseException("Fejl i login. Prøv igen");
@@ -65,8 +64,7 @@ public class UserMapper
                 String lastName = rs.getString("last_name");
                 String userName = rs.getString("username");
                 int postcode = rs.getInt("postcode");
-                String role = rs.getString("role");
-                return new User(id, firstName, lastName, userName, email, password, postcode, role);
+                return new User(id, firstName, lastName, userName, email, password, postcode);
             } else
             {
                 throw new DatabaseException("Fejl i login. Prøv igen");
@@ -78,17 +76,23 @@ public class UserMapper
         }
     }
 
-    public static void createuser(String userName, String password, ConnectionPool connectionPool) throws DatabaseException
+    public static void createuser(String firstName, String lastName, String userName, String email, String password, int postcode, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "insert into users (username, password) values (?,?)";
+        String sql = "insert into users (first_name, last_name, username, email, password, balance, postcode, role) values (?,?,?,?,?,?,?,?)";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         )
         {
-            ps.setString(1, userName);
-            ps.setString(2, password);
+            ps.setString(1, firstName);
+            ps.setString(2, lastName);
+            ps.setString(3, userName);
+            ps.setString(4, email);
+            ps.setString(5, password);
+            ps.setInt(6, postcode);
+            ps.setBigDecimal(7, BigDecimal.valueOf(500.00));
+            ps.setString(8, "customer");
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 1)
@@ -101,7 +105,7 @@ public class UserMapper
             String msg = "Der er sket en fejl. Prøv igen";
             if (e.getMessage().startsWith("ERROR: duplicate key value "))
             {
-                msg = "Brugernavnet findes allerede. Vælg et andet";
+                msg = "Brugernavn eller email findes allerede. Vælg et andet";
             }
             throw new DatabaseException(msg, e.getMessage());
         }
