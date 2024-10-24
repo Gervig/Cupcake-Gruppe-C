@@ -16,9 +16,14 @@ public class OrderlineMapper
     {
         List<Orderline> orderlineList = new ArrayList<>();
 
-        //TODO join!
-
-        String sql = "";
+        String sql = "SELECT Orderline.orderline_id, " +
+                "Orderline.order_id, " +
+                "Orderline.bottom_id, " +
+                "Bottom.bottom_name, " +
+                "Orderline.topping_id, " +
+                "Topping.topping_name, " +
+                "Orderline.quantity, " +
+                "Orderline.price FROM Orderline JOIN Orders ON Orderline.order_id = Orders.order_id JOIN Users ON Orders.user_id = Users.user_id JOIN Bottom ON Orderline.bottom_id = Bottom.bottom_id JOIN Topping ON Orderline.topping_id = Topping.topping_id WHERE Users.user_id = :user_id;";
 
         try(
                 Connection connection = connectionPool.getConnection();
