@@ -18,13 +18,17 @@
     <h1>Log på</h1>
         <div class="buttons">
             <form method="post">
-                <input type="email" name="email" placeholder="email"/>
-                <input type="password" name="password" placeholder="password"/>
+                <input type="email" name="email" placeholder="Email"/>
+                <input type="password" name="password" placeholder="Kodeord"/>
                 <button type="submit" formaction="/login">Log på</button>
-                <p class="errormessage" th:text="${#ctx.message}"></p>
+                <p class="errormessage" th:text="${#ctx.message}"th:style="'color: red'"></p>
             </form>
         </div>
-        <a href="/createUser">Create account</a>
+        <div class="flexbox-container1">
+        <div class="flexbox-item flexbox-item-lt-btn">
+            <a href="createUser.html" th:href="@{createuser}"/>Opret bruger</a>
+        </div>
+        </div>
     </div>
 </body>
 </html>
