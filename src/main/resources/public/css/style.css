@@ -89,14 +89,25 @@ select{
 .flexbox-item-5 {
     align-self: center;
     justify-content: center;
+    align-items: center;
+}
+
+.button {
+    display: inline-block; /* Gør det til en blok, så hele området er klikbart */
+    padding: 8px; /* Indvendig afstand for at gøre knappen større */
+    text-align: center; /* Centrerer teksten */
+    text-decoration: none; /* Fjerner understregning */
     margin: 1%;
-    padding: 1%;
-    border-radius: 8px;
+    border-radius: 8px; /* Rundede hjørner */
     font-size: large;
     font-family: Arial;
     background-color: rgb(200, 200, 200);
+    white-space: nowrap;
 }
 
+.button:hover {
+    background-color: rgb(72, 48, 112); /* Mørkere farve ved hover */
+}
 /*Toolbar CSS*/
 .toolbar {
     background-color: rgb(245, 245, 245);
