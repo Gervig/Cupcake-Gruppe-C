@@ -19,7 +19,7 @@ public class UserController
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
     }
 
-    private static void createUser(Context ctx, ConnectionPool connectionPool)
+    public static void createUser(Context ctx, ConnectionPool connectionPool)
     {
         String username = ctx.formParam("username");
         String password1 = ctx.formParam("password1");
