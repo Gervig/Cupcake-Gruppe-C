@@ -4,6 +4,7 @@ import app.entities.Orderline;
 import app.entities.Orders;
 import app.exceptions.DatabaseException;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,7 +47,14 @@ public class OrderlineMapper
             while (rs.next())
             {
                 int orderlineId = rs.getInt("orderline_id");
-                int orderId = 
+                int orderId = rs.getInt("order_id");
+                int bottomId = rs.getInt("bottom_id");
+                String bottomName = rs.getString("bottom_name");
+                int toppingId = rs.getInt("topping_id");
+                String toppingName = rs.getString("topping_name");
+                int quantity = rs.getInt("quantity");
+                BigDecimal price = rs.getBigDecimal("price");
+                orderlineList.add(new Orderline(orderlineId, orderId, bottomId, toppingId, quantity, price));
             }
         } catch (SQLException e) {
             throw new DatabaseException("Fejl!",e.getMessage());
