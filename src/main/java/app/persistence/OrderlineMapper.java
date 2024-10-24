@@ -7,6 +7,7 @@ import app.exceptions.DatabaseException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,9 +45,12 @@ public class OrderlineMapper
             ResultSet rs = ps.executeQuery();
             while (rs.next())
             {
-                int id =
+                int orderlineId = rs.getInt("orderline_id");
+                int orderId = 
             }
-        }
+        } catch (SQLException e) {
+            throw new DatabaseException("Fejl!",e.getMessage());
+    }
 
         return orderlineList;
     }
