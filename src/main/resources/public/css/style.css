@@ -43,6 +43,28 @@ button[type=submit]{
     background-color: rgb(200, 200, 200);
     border-style: hidden;
     color: rgb(52, 28, 92);
+    white-space: nowrap;
+}
+
+button[type=submit]:hover{
+    background-color: rgb(170, 170, 170);
+}
+
+.button {
+    display: inline-block;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    margin: 1%;
+    border-radius: 8px;
+    font-size: large;
+    font-family: Arial;
+    background-color: rgb(200, 200, 200);
+    white-space: nowrap;
+}
+
+.button:hover {
+    background-color: rgb(170, 170, 170);
 }
 
 input{
@@ -71,30 +93,28 @@ select{
     align-items: center;
 }
 
-
-/*CSS for small buttons*/
-.flexbox-item-lt-btn{
-    align-self: center;
-    justify-content: center;
-    margin: 1%;
-    padding: 0.5%;
-    border-radius: 8px;
-    font-size: small;
-    font-family: Arial;
-    background-color: rgb(200, 200, 200);
-}
-
-
 /*CSS for INDEX page*/
 .flexbox-item-5 {
     align-self: center;
     justify-content: center;
+    align-items: center;
+}
+
+.button {
+    display: inline-block;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
     margin: 1%;
-    padding: 1%;
     border-radius: 8px;
     font-size: large;
     font-family: Arial;
     background-color: rgb(200, 200, 200);
+    white-space: nowrap;
+}
+
+.button:hover {
+    background-color: rgb(170, 170, 170);
 }
 
 /*Toolbar CSS*/
