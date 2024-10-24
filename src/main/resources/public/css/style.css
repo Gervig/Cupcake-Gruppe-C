@@ -6,7 +6,6 @@ html * {
 }
 
 header {
-    margin-bottom: 40px;
     background-color: rgb(52, 28, 92);
 }
 
@@ -41,6 +40,7 @@ h3 {
 
 /*CSS for INDEX page*/
 .page-content {
+    margin-top: 1px;
     font-size: xxx-large;
     background-color: rgb(245, 245, 245);
     text-align: center;
@@ -48,10 +48,28 @@ h3 {
     min-height: 400px;
 }
 
-.buttons {
+a:link {
+    text-decoration: none;
 
 }
 
+.flexbox-container1 {
+    /*Sørger for at knapperne i flexbox item5 centeres på midten af siden*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexbox-item-5 {
+    align-self: center;
+    justify-content: center;
+    margin: 1%;
+    padding: 1%;
+    border-radius: 8px;
+    font-size: large;
+    font-family: Arial;
+    background-color: darkgray;
+}
 
 /*Toolbar CSS*/
 .toolbar {
