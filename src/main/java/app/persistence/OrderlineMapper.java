@@ -6,6 +6,7 @@ import app.exceptions.DatabaseException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,14 +33,19 @@ public class OrderlineMapper
                 "JOIN Users ON Orders.user_id = Users.user_id " +
                 "JOIN Bottom ON Orderline.bottom_id = Bottom.bottom_id " +
                 "JOIN Topping ON Orderline.topping_id = Topping.topping_id " +
-                "WHERE Users.user_id = :user_id;";
+                "WHERE Users.user_id = ?";
 
-        try(
+        try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
-                )
+        )
         {
-            ps.setInt(1, );
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+            {
+                int id =
+            }
         }
 
         return orderlineList;
