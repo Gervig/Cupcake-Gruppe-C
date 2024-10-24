@@ -18,7 +18,7 @@ public class OrderlineMapper
 
         //TODO join!
 
-        String sql = "SELECT * FROM orderline WHERE order_id=? ORDER BY order_id";
+        String sql = "";
 
         try(
                 Connection connection = connectionPool.getConnection();
