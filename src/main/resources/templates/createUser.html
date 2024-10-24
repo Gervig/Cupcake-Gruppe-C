@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<title>Frontpage</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+<head>
+    <title>Opret Bruger</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -13,19 +14,26 @@
         <img alt="logo" src="public/images/headerImage.png" th:src="@{images/headerImage.png}"/>
     </a>
 </header>
+
 <div class="page-content">
-        <h1>Opret bruger</h1>
+    <h1>Opret Bruger</h1>
 
-        <div id="centered-form">
-            <form method="post">
-                <input type="text" name="username" placeholder="username"/><br/><br>
-                <input type="password" name="password" placeholder="password"/><br/><br>
+    <div id="centered-form">
+        <form method="post" formaction="/createuser">
+            <input type="text" name="username" placeholder="Username" required/><br/><br>
+            <input type="password" name="password1" placeholder="Password" required/><br/><br>
+            <input type="password" name="password2" placeholder="Confirm Password" required/><br/><br>
+            <input type="text" name="firstname" placeholder="First Name" required/><br/><br>
+            <input type="text" name="lastname" placeholder="Last Name" required/><br/><br>
+            <input type="Email" name="Email" placeholder="email" required/><br/><br>
+            <input type="text" name="postcode" placeholder="Postcode" required/><br/><br>
 
-                <button type="submit" formaction="/login">Opret bruger</button>
-            </form>
+            <button type="submit">Opret bruger</button>
+        </form>
 
-            <p class="errormessage" th:text="${#ctx.message}"></p>
-        </div>
+        <p class="errormessage" th:text="${message}"></p>
+    </div>
 </div>
 </body>
+
 </html>
