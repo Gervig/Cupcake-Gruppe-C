@@ -5,6 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+
 </head>
 
 <body>
@@ -18,17 +21,19 @@
     <div class="flexbox-container">
         <div class="flexbox-item flexbox-item-1">
             <!--Change the h-ref with listOfOrders            -->
-            <a href="login.html" th:href="@{login}"/>Ordrer</a>
+            <a href="listOfOrders.html" th:href="@{listOfOrders.html}"
+               th:style="'color: rgb(170, 170, 170)'"/>Ordrer</a>
         </div>
         <div class="flexbox-item flexbox-item-2">
             <!--Change the h-ref with something to do for the profile            -->
-            <a href="login.html" th:href="@{login}"/>Din profil</a>
+            <a href="login.html" th:href="@{login}" th:style="'color: rgb(170, 170, 170)'"/>Din profil</a>
         </div>
         <!--Change the E-mail with placeholder            -->
         <div class="flexbox-item flexbox-item-3">E-mail</div>
         <div class="flexbox-item flexbox-item-4">
-            <!--Make sure the basket works          -->
-            <a><span class="material-symbols-outlined">shopping_basket</span></a>
+            <a href="templates/shopping_basket.html" th:style="'color: rgb(170, 170, 170)'">
+                <!--Make sure the basket works          -->
+                <span class="material-symbols-outlined">shopping_basket</span></a>
         </div>
     </div>
 </div>
