@@ -2,19 +2,31 @@ package app.persistence;
 
 import app.entities.Orderline;
 import app.entities.Orders;
+import app.exceptions.DatabaseException;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class OrderlineMapper
 {
-    public static List<Orderline> getAllOrderlinePerUser(int userId, ConnectionPool connectionPoo)
+    public static List<Orderline> getAllOrderlinePerUser(int userId, ConnectionPool connectionPool) throws DatabaseException
     {
         List<Orderline> orderlineList = new ArrayList<>();
 
-        //TODO get a userId from order
+        //TODO join!
 
-        String sql = "";
+        String sql = "SELECT * FROM orderline WHERE order_id=? ORDER BY order_id";
+
+        try(
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+                )
+        {
+            ps.setInt(1, );
+        }
 
         return orderlineList;
     }
