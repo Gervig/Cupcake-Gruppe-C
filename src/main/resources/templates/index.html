@@ -17,9 +17,15 @@
 <div class="page-content">
     <h1>Velkommen Ombord</h1>
     <div class="buttons">
-        <a href="login.html" th:href="@{login}"/>Login</a>
-        <a href="createUser.html" th:href="@{createUser}"/>Opret bruger</a>
+        <form method="post">
+        <input type="email" name="email" placeholder="email"/>
+        <input type="password" name="password" placeholder="password"/>
+        <button type="submit" formaction="/login">Log på</button>
+    </form>
     </div>
+    <a href="/createUser">Create account</a>
+
+    <p class="errormessage" th:text="${#ctx.message}"></p>
 </div>
 </body>
 </html>

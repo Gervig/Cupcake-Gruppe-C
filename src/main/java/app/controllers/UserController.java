@@ -17,24 +17,32 @@ public class UserController
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
     }
 
-    private static void createUser(Context ctx, ConnectionPool connectionPool)
+    public static void createUser(Context ctx, ConnectionPool connectionPool)
     {
         // Hent form parametre
-        String username = ctx.formParam("username");
+        String firstName = ctx.formParam("firstName");
+        String lastName = ctx.formParam("lastName");
+        String userName = ctx.formParam("username");
+        String email = ctx.formParam("email");
         String password1 = ctx.formParam("password1");
         String password2 = ctx.formParam("password2");
+        String postcodeString = ctx.formParam("postcode");
+
+        int postcode = 0;
+        if (postcodeString != null)
+        {
+            postcode = Integer.parseInt(postcodeString);
+        }
 
         if (password1.equals(password2))
         {
             try
             {
-                UserMapper.createuser(username, password1, connectionPool);
-                ctx.attribute("message", "Du er hermed oprettet med brugernavn: " + username +
+                UserMapper.createuser(firstName, lastName, userName, email, password1, postcode, connectionPool);
+                ctx.attribute("message", "Du er hermed oprettet med brugernavn: " + userName +
                         ". Nu skal du logge på.");
                 ctx.render("index.html");
-            }
-
-            catch (DatabaseException e)
+            } catch (DatabaseException e)
             {
                 ctx.attribute("message", "Dit brugernavn findes allerede. Prøv igen, eller log ind");
                 ctx.render("createuser.html");
@@ -57,22 +65,24 @@ public class UserController
     public static void login(Context ctx, ConnectionPool connectionPool)
     {
         // Hent form parametre
-        String username = ctx.formParam("username");
+        String email = ctx.formParam("email");
+//        String email = ctx.formParam("email");
         String password = ctx.formParam("password");
+
+        //TODO kunne logge ind med email også
 
         // Check om bruger findes i DB med de angivne username + password
         try
         {
-            User user = UserMapper.login(username, password, connectionPool);
+            User user = UserMapper.login(email, password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
             // Hvis ja, send videre til forsiden med login besked
             ctx.attribute("message", "Du er nu logget ind");
-            ctx.render("index.html");
-        }
-        catch (DatabaseException e)
+            ctx.render("login.html");
+        } catch (DatabaseException e)
         {
             // Hvis nej, send tilbage til login side med fejl besked
-            ctx.attribute("message", e.getMessage() );
+            ctx.attribute("message", e.getMessage());
             ctx.render("index.html");
         }
 
