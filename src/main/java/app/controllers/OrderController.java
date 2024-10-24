@@ -1,27 +1,56 @@
-package app.controller;
+package app.controllers;
 
-import io.javalin.http.Context;
-import app.persistence.OrderMapper;
 import app.entities.Order;
-import app.persistence.ConnectionPool; // Assuming you have a connection pool class
+import app.entities.OrderLine;
+import app.exceptions.DatabaseException;
+import app.persistence.ConnectionPool;
+import app.persistence.OrderMapper;
+import io.javalin.Javalin;
+import io.javalin.http.Context;
 import java.util.List;
 
 public class OrderController {
 
-    private static ConnectionPool connectionPool;
-
-    public OrderController(ConnectionPool pool) {
-        connectionPool = pool;
+    public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
+        app.get("/admin/orders", ctx -> getAllOrders(ctx, connectionPool));
+        app.get("/admin/orders/:id", ctx -> getOrderById(ctx, connectionPool));
+        app.post("/admin/orders/new", ctx -> createNewOrder(ctx, connectionPool));
     }
 
-    public static void getAllOrders(Context ctx) {
+    private static void getAllOrders(Context ctx, ConnectionPool connectionPool) {
         try {
             List<Order> orders = OrderMapper.getAllOrders(connectionPool);
             ctx.attribute("orders", orders);
             ctx.render("/templates/admin_orders.html");
-        } catch (Exception e) {
-            e.printStackTrace();
-            ctx.status(500).result("Kunne ikke hente ordre");
+        } catch (DatabaseException e) {
+            ctx.attribute("message", "Kunne ikkke henter ordre: " + e.getMessage());
+            ctx.status(500).render("/templates/error.html");
         }
+    }
+
+
+    private static void getOrderById(Context ctx, ConnectionPool connectionPool) {
+        try {
+            int orderId = Integer.parseInt(ctx.pathParam("id"));
+            List<Order> order = OrderMapper.getOrdersByUserId(orderId, connectionPool);
+
+            if (order != null) {
+                ctx.attribute("order", order);
+                ctx.render("/templates/order_details.html");
+            } else {
+                ctx.attribute("message", "Kunne ikkke henter ordre.");
+                ctx.status(404).render("/templates/error.html");
+            }
+        } catch (NumberFormatException e) {
+            ctx.attribute("message", "Forkert formatering af order ID.");
+            ctx.status(400).render("/templates/error.html");
+        } catch (DatabaseException e) {
+            ctx.attribute("message", "Kunne ikkke henter ordre " + e.getMessage());
+            ctx.status(500).render("/templates/error.html");
+        }
+    }
+
+
+    private static void createNewOrder(Context ctx, ConnectionPool connectionPool) {
     }
 }
