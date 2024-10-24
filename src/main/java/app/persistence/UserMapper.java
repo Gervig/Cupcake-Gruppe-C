@@ -40,43 +40,40 @@ public class UserMapper
             {
                 throw new DatabaseException("Fejl i login. Prøv igen");
             }
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             throw new DatabaseException("DB fejl", e.getMessage());
         }
     }
 
-    public static void createuser(String firstName, String lastName, String userName, String email, String password, int postcode, ConnectionPool connectionPool) throws DatabaseException
-    {
-        String sql = "insert into users (first_name, last_name, username, email, password, balance, postcode, role) values (?,?,?,?,?,?,?,?)";
+    public static void createuser(String userName, String password, String firstName, String lastName, String email, BigDecimal balance, int postcode, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "insert into users (username, password, first_name, last_name, email, balance, postcode) values (?,?,?,?,?,?,?)";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
-        )
-        {
-            ps.setString(1, firstName);
-            ps.setString(2, lastName);
-            ps.setString(3, userName);
-            ps.setString(4, email);
-            ps.setString(5, password);
-            ps.setInt(6, postcode);
-            ps.setBigDecimal(7, BigDecimal.valueOf(500.00));
-            ps.setString(8, "customer");
+        ) {
+            ps.setString(1, userName);
+            ps.setString(2, password);
+            ps.setString(3, firstName);
+            ps.setString(4, lastName);
+            ps.setString(5, email);
+            ps.setBigDecimal(6, balance);
+            ps.setInt(7, postcode);
 
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected != 1)
-            {
+
+            if (rowsAffected != 1) {
                 throw new DatabaseException("Fejl ved oprettelse af ny bruger");
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             String msg = "Der er sket en fejl. Prøv igen";
-            if (e.getMessage().startsWith("ERROR: duplicate key value "))
-            {
-                msg = "Brugernavn eller email findes allerede. Vælg et andet";
+            if (e.getMessage().startsWith("ERROR: duplicate key value ")) {
+                msg = "Brugernavnet findes allerede. Vælg et andet";
             }
             throw new DatabaseException(msg, e.getMessage());
         }
     }
+
 }
