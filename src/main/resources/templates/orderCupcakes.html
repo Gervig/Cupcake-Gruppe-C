@@ -9,76 +9,77 @@
 
 <body>
 
-    <header>
-        <a href="index.html" th:href="@{/}">
-            <img alt="logo" src="../public/images/headerImage.png" th:src="@{/images/headerImage.png}"/>
-        </a>
-    </header>
-    <div class="toolbar">
-        <div class="flexbox-container">
-            <div class="flexbox-item flexbox-item-1">
-                <!--Change the h-ref with listOfOrders            -->
-                <a href="login.html" th:href="@{login}"/>Ordrer</a>
-            </div>
-            <div class="flexbox-item flexbox-item-2">
+<header>
+    <a href="index.html" th:href="@{/}">
+        <img alt="logo" src="../public/images/headerImage.png" th:src="@{/images/headerImage.png}"/>
+    </a>
+</header>
+<div class="toolbar">
+    <div class="flexbox-container">
+        <div class="flexbox-item flexbox-item-1">
+            <!--Change the h-ref with listOfOrders            -->
+            <a href="login.html" th:href="@{login}"/>Ordrer</a>
+        </div>
+        <div class="flexbox-item flexbox-item-2">
             <!--Change the h-ref with something to do for the profile            -->
             <a href="login.html" th:href="@{login}"/>Din profil</a>
-            </div>
-<!--Change the E-mail with placeholder            -->
-            <div class="flexbox-item flexbox-item-3">E-mail</div>
-            <div class="flexbox-item flexbox-item-4">
-                <!--Make sure the basket works          -->
-                <a><span class="material-symbols-outlined">shopping_basket</span></a>
-            </div>
+        </div>
+        <!--Change the E-mail with placeholder            -->
+        <div class="flexbox-item flexbox-item-3">E-mail</div>
+        <div class="flexbox-item flexbox-item-4">
+            <!--Make sure the basket works          -->
+            <a><span class="material-symbols-outlined">shopping_basket</span></a>
         </div>
     </div>
+</div>
 
-    <h1>Velkommen Ombord</h1>
-    <h2>Øens bedste cupcakes</h2>
+<h1>Velkommen Ombord</h1>
+<h2>Øens bedste cupcakes</h2>
 
-    <form>
-        <div>
-    <select name="bottom" id="bottom" required>
-        <option value="" disabled selected>Vælg bund</option>
-        <option value="1">Vanilje</option>
-        <option value="2">Chokolade</option>
-        <option value="3">Andet</option>
-    </select>
-        </div>
+<form>
+    <div>
+        <select name="bottom" id="bottom" required>
+            <option value="" disabled selected>Vælg bund</option>
+            <option value="1">Vanilje</option>
+            <option value="2">Chokolade</option>
+            <option value="3">Andet</option>
+        </select>
 
-    <select name="topping" id="topping" required>
-        <option value="" disabled selected>Vælg topping</option>
-        <option value="1">Vanilje</option>
-        <option value="2">Chokolade</option>
-        <option value="3">Andet</option>
-        <option value="3">3</option>
-        <option value="3">3</option>
-    </select>
 
-    <select name="amount" id="antal" required>
-        <option value="" disabled selected>Vælg antal</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="3">3</option>
-        <option value="3">3</option>
-        <option value="3">3</option>
-        <option value="3">3</option>
-        <option value="3">3</option>
-    </select>
-<!--
-    <button type="submit" formaction="/done" th:value="${orderItem.orderItem_id}">Tilføj til kurv</button>
--->
+        <select name="topping" id="topping" required>
+            <option value="" disabled selected>Vælg topping</option>
+            <option value="1">Vanilje</option>
+            <option value="2">Chokolade</option>
+            <option value="3">Andet</option>
+            <option value="3">3</option>
+            <option value="3">3</option>
+        </select>
+
+        <select name="amount" id="antal" required>
+            <option value="" disabled selected>Vælg antal</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="3">3</option>
+            <option value="3">3</option>
+            <option value="3">3</option>
+            <option value="3">3</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+    <!--
+        <button type="submit" formaction="/done" th:value="${orderItem.orderItem_id}">Tilføj til kurv</button>
+    -->
     <button type="submit" formaction="index.html">
         Tilføj til kurv
         <a href="index.html" th:href="@{/}">
         </a></button>
-<!--
-    th:each="task: ${#ctx.taskList}">
-    <td th:text="${task.name}"></td>
-    <td><button type="submit" formaction="/done" th:value="${task.task_id}">Done</button></td>
--->
-    </form>
+    <!--
+        th:each="task: ${#ctx.taskList}">
+        <td th:text="${task.name}"></td>
+        <td><button type="submit" formaction="/done" th:value="${task.task_id}">Done</button></td>
+    -->
+</form>
 </body>
 </html>
 
