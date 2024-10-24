@@ -12,16 +12,17 @@ import java.sql.SQLException;
 public class UserMapper
 {
 
-    public static User login(String userName, String password, ConnectionPool connectionPool) throws DatabaseException
+    public static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "select * from public.\"users\" where username=? and password=?";
+        // temporarily converts the email to lowercase in both the DB and the user input
+        String sql = "SELECT * FROM public.\"users\" WHERE LOWER(email) = LOWER(?) AND password = ?";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         )
         {
-            ps.setString(1, userName);
+            ps.setString(1, email);
             ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
@@ -30,11 +31,10 @@ public class UserMapper
                 int id = rs.getInt("user_id");
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
-                String email = rs.getString("email");
-                String role = rs.getString("role");
+                String userName = rs.getString("username");
                 BigDecimal balance = rs.getBigDecimal("balance");
                 int postcode = rs.getInt("postcode");
-
+                String role = rs.getString("role");
                 return new User(id, firstName, lastName, userName, email, password, balance, postcode, role);
             } else
             {
@@ -45,7 +45,6 @@ public class UserMapper
             throw new DatabaseException("DB fejl", e.getMessage());
         }
     }
-
 
     public static void createuser(String userName, String password, String firstName, String lastName, String email, BigDecimal balance, int postcode, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "insert into users (username, password, first_name, last_name, email, balance, postcode) values (?,?,?,?,?,?,?)";
@@ -75,6 +74,5 @@ public class UserMapper
             throw new DatabaseException(msg, e.getMessage());
         }
     }
-
 
 }

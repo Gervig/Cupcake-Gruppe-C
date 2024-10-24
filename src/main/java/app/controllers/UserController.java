@@ -26,7 +26,7 @@ public class UserController
         String password2 = ctx.formParam("password2");
         String firstName = ctx.formParam("firstname");
         String lastName = ctx.formParam("lastname");
-        String email = ctx.formParam("email");
+        String email = ctx.formParam("Email");
         String postcodeStr = ctx.formParam("postcode");
 
         int postcode;
@@ -44,7 +44,7 @@ public class UserController
         {
             try
             {
-                BigDecimal defaultBalance = new BigDecimal(500.00);
+                BigDecimal defaultBalance = new BigDecimal(500);
 
                 UserMapper.createuser(username, password1, firstName, lastName, email, defaultBalance, postcode, connectionPool);
 
@@ -62,25 +62,34 @@ public class UserController
         }
     }
 
+
     private static void logout(Context ctx)
     {
         ctx.req().getSession().invalidate();
         ctx.redirect("/");
     }
 
+
     public static void login(Context ctx, ConnectionPool connectionPool)
     {
-        String username = ctx.formParam("username");
+        // Hent form parametre
+        String email = ctx.formParam("email");
+        //String email = ctx.formParam("email");
         String password = ctx.formParam("password");
 
+        //TODO kunne logge ind med email også
+
+        // Check om bruger findes i DB med de angivne username + password
         try
         {
-            User user = UserMapper.login(username, password, connectionPool);
+            User user = UserMapper.login(email, password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
+            // Hvis ja, send videre til forsiden med login besked
             ctx.attribute("message", "Du er nu logget ind");
-            ctx.render("index.html");
+            ctx.render("login.html");
         } catch (DatabaseException e)
         {
+            // Hvis nej, send tilbage til login side med fejl besked
             ctx.attribute("message", e.getMessage());
             ctx.render("index.html");
         }
