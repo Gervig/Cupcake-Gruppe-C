@@ -8,7 +8,7 @@ html * {
 /*CSS for Header*/
 header {
     background-color: rgb(52, 28, 92);
-    margin-bottom: -2%;
+    margin-bottom: 7px;
 }
 
 header a {
@@ -46,6 +46,15 @@ button[type=submit]{
 }
 
 input{
+    margin: 1%;
+    padding: 0.5%;
+    border-radius: 8px;
+    font-family: Arial;
+    border-style: hidden;
+    color: rgb(52, 28, 92);
+}
+
+select{
     margin: 1%;
     padding: 0.5%;
     border-radius: 8px;
