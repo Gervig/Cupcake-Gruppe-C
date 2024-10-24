@@ -33,6 +33,9 @@ public class Main
         app.get("/createuser", ctx -> ctx.render("createUser.html"));
         app.post("/createuser", ctx -> UserController.createUser(ctx, connectionPool));
 
+        //Testing
+        app.get("/orderCupcakes", ctx -> ctx.render("orderCupcakes.html"));
+
         UserController.addRoutes(app, connectionPool);
     }
 }
