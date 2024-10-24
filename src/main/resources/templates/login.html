@@ -16,12 +16,15 @@
     </header>
     <div class="page-content">
     <h1>Log på</h1>
-    <form class="generic-form" method="post">
-        <input type="email" name="email" placeholder="email"/>
-        <input type="password" name="password" placeholder="kodeord"/>
-        <button class="btn btn-ok" type="submit" formaction="/login">Log på</button>
-        <div><p class="errormessage" th:text="${#ctx.message}"></p></div>
-    </form>
+        <div class="buttons">
+            <form method="post">
+                <input type="email" name="email" placeholder="email"/>
+                <input type="password" name="password" placeholder="password"/>
+                <button type="submit" formaction="/login">Log på</button>
+                <p class="errormessage" th:text="${#ctx.message}"></p>
+            </form>
+        </div>
+        <a href="/createUser">Create account</a>
     </div>
 </body>
 </html>
