@@ -70,7 +70,6 @@ public class UserController
         String password = ctx.formParam("password");
 
         //TODO kunne logge ind med email også
-
         // Check om bruger findes i DB med de angivne username + password
         try
         {
@@ -85,6 +84,6 @@ public class UserController
             ctx.attribute("message", e.getMessage());
             ctx.render("index.html");
         }
-
     }
+
 }
