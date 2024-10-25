@@ -17,7 +17,7 @@ public class OrderController {
         app.post("/admin/orders/new", ctx -> createNewOrder(ctx, connectionPool));
     }
 
-    private static void getAllOrders(Context ctx, ConnectionPool connectionPool) {
+    public static void getAllOrders(Context ctx, ConnectionPool connectionPool) {
         try {
             List<Order> orders = OrderMapper.getAllOrders(connectionPool);
             ctx.attribute("orders", orders);
