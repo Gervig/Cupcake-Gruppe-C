@@ -72,27 +72,25 @@ public class UserController
 
     public static void login(Context ctx, ConnectionPool connectionPool)
     {
-        // Hent form parametre
         String email = ctx.formParam("email");
-//        String email = ctx.formParam("email");
         String password = ctx.formParam("password");
 
-        //TODO kunne logge ind med email også
-
-        // Check om bruger findes i DB med de angivne username + password
         try
         {
             User user = UserMapper.login(email, password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
-            // Hvis ja, send videre til forsiden med login besked
-            ctx.attribute("message", "Du er nu logget ind");
-            ctx.render("orderCupcakes.html");
+
+            if ("admin".equals(user.getRole())) {
+                ctx.attribute("message", "Velkommen, Admin!");
+                ctx.render("admin.html");
+            } else {
+                ctx.attribute("message", "Du er nu logget ind");
+                ctx.render("orderCupcakes.html");
+            }
         } catch (DatabaseException e)
         {
-            // Hvis nej, send tilbage til login side med fejl besked
             ctx.attribute("message", e.getMessage());
             ctx.render("login.html");
         }
-
     }
 }
