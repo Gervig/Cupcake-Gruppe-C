@@ -148,3 +148,17 @@ select{
 .flexbox-item-4 {
     margin-right: 2%;
 }
+
+.shopping-basket-table {
+    border-collapse: collapse;
+    font-size: 1.2rem;
+}
+
+.shopping-basket-table td, .task-table th{
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.shopping-basket-table tr:nth-child(even){
+    background-color: silver;
+}

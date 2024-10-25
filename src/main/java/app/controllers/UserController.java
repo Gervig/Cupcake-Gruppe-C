@@ -16,6 +16,8 @@ public class UserController
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
         app.get("createuser", ctx -> ctx.render("createuser.html"));
+        app.get("/shoppingBasket", ctx -> ctx.render("shoppingBasket.html"));
+        app.post("/shoppingBasket", ctx -> OrderController.checkOutCart(ctx, connectionPool));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
     }
 
@@ -74,7 +76,6 @@ public class UserController
     {
         // Hent form parametre
         String email = ctx.formParam("email");
-//        String email = ctx.formParam("email");
         String password = ctx.formParam("password");
 
         //TODO kunne logge ind med email også

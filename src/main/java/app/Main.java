@@ -36,9 +36,6 @@ public class Main
 
         app.get("/orderCupcakes", ctx -> ctx.render("orderCupcakes.html"));
 
-        app.get("/shoppingBasket", ctx -> ctx.render("shoppingBasket.html"));
-        app.post("/shoppingBasket", ctx -> OrderController.checkOutCart(ctx, connectionPool));
-
         UserController.addRoutes(app, connectionPool);
     }
 }

@@ -16,10 +16,9 @@ public class OrderController
 {
     public static void checkOutCart(Context ctx, ConnectionPool connectionPool)
     {
-        List<Orderline> allOrdersPerUser = new ArrayList<>();
+        List<Orderline> orders = new ArrayList<>();
         // Hent form parametre
         String email = ctx.formParam("email");
-//        String email = ctx.formParam("email");
         String password = ctx.formParam("password");
 
         //TODO kunne logge ind med email også
@@ -29,9 +28,8 @@ public class OrderController
             // maybe don't login again, but we need a current user?
             User user = UserMapper.login(email, password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
-            allOrdersPerUser = OrderlineMapper.getAllOrderlinePerUser(user.getUserId(), connectionPool);
-            ctx.sessionAttribute("orders", allOrdersPerUser);
-            // Hvis ja, send videre til forsiden med login besked
+            orders = OrderlineMapper.getAllOrderlinePerUser(user.getUserId(), connectionPool);
+            ctx.attribute("orders", orders);
             ctx.attribute("shoppingBasketMessage", "Her er din indkøbskurv");
             ctx.render("shoppingBasket.html");
         } catch (DatabaseException e)

@@ -16,19 +16,20 @@
 </header>
 
 <p>Hej <span th:text="${#ctx.session.currentUser.userName}"></span> her kan du se dine ordrer!</p>
-
-<tbody>
-<tr th:unless="${#ctx.orders==null}" th:each="task: ${#ctx.orders}">
-    <td th:text="${orderline.orderlineId}"></td>
-    <td>
-        <!--        TODO create buttons for each order, so that you can buy them.
-        TODO Will probably need to be able to change the status of the order-->
-        <!--           <form method="post">-->
-        <!--                <button type="submit" formaction="/buy" th:value="${orderline.orderlineId}">Køb</button>-->
-        <!--            </form>-->
-    </td>
-</tr>
-</tbody>
+<table class ="shopping-basket-table">
+    <tbody>
+    <tr th:each="orderLine : ${orders}">
+        <td th:text="${orderline.orderlineId}"> er ID på din ordre!</td>
+        <td>
+            <!--        TODO create buttons for each order, so that you can buy them.
+            TODO Will probably need to be able to change the status of the order-->
+            <!--           <form method="post">-->
+            <!--                <button type="submit" formaction="/buy" th:value="${orderline.orderlineId}">Køb</button>-->
+            <!--            </form>-->
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>
