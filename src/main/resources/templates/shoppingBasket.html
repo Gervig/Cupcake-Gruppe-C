@@ -9,30 +9,26 @@
 
 <body>
 
-    <header>
-        <a href="index.html" th:href="@{/}">
-            <img alt="logo" src="../public/images/headerImage.png" th:src="@{/images/headerImage.png}"/>
-        </a>
-    </header>
-    <div class="toolbar">
-        <div class="flexbox-container">
-            <div class="flexbox-item flexbox-item-1">Ordrer</div>
-            <div class="flexbox-item flexbox-item-2">Kunder</div>
-<!--Change the E-mail with placeholder            -->
-            <div class="flexbox-item flexbox-item-3">E-mail</div>
-            <div class="flexbox-item flexbox-item-4"><a><span
-                    class="material-symbols-outlined">shopping_basket</span></a>
-            </div>
-        </div>
-    </div>
+<header>
+    <a href="index.html" th:href="@{/}">
+        <img alt="logo" src="../public/images/headerImage.png" th:src="@{/images/headerImage.png}"/>
+    </a>
+</header>
 
-    <h1>Velkommen Ombord</h1>
-    <form class="generic-form" method="post">
-        <button type="submit">Login</button>
-    </form>
-    <form class="generic-form" method="post">
-        <button type="submit">Opret Bruger</button>
-    </form>
+<p>Hej <span th:text="${#ctx.session.currentUser.userName}"></span> her kan du se dine ordrer!</p>
+
+<tbody>
+<tr th:unless="${#ctx.orders==null}" th:each="task: ${#ctx.orders}">
+    <td th:text="${orderline.orderlineId}"></td>
+    <td>
+        <!--        TODO create buttons for each order, so that you can buy them.
+        TODO Will probably need to be able to change the status of the order-->
+        <!--           <form method="post">-->
+        <!--                <button type="submit" formaction="/buy" th:value="${orderline.orderlineId}">Køb</button>-->
+        <!--            </form>-->
+    </td>
+</tr>
+</tbody>
 
 </body>
 </html>
