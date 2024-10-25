@@ -16,10 +16,12 @@ public class UserController
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
         app.get("createuser", ctx -> ctx.render("createuser.html"));
-        app.get("/shoppingBasket", ctx -> ctx.render("shoppingBasket.html"));
+        //app.get("/shoppingBasket", ctx -> ctx.render("shoppingBasket.html")); ændrede den til linjen under for at koden router orrekt
+        app.get("/shoppingBasket", ctx -> OrderController.checkOutCart(ctx, connectionPool));
         app.post("/shoppingBasket", ctx -> OrderController.checkOutCart(ctx, connectionPool));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
     }
+
 
     public static void createUser(Context ctx, ConnectionPool connectionPool)
     {

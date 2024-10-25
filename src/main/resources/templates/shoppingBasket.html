@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
-<title>Frontpage</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+<head>
+    <title>Indkøbskurv</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
-
 <body>
 
 <header>
@@ -15,17 +14,18 @@
     </a>
 </header>
 
-<p>Hej <span th:text="${#ctx.session.currentUser.userName}"></span> her kan du se dine ordrer!</p>
-<table class ="shopping-basket-table">
+<p>Hej <span th:text="${#ctx.session.currentUser.userName}">Bruger</span>, her kan du se dine ordrer!</p>
+<p th:text="${shoppingBasketMessage}"></p> <!-- Tilføjede message og quantity og price -->
+<table class="shopping-basket-table">
     <tbody>
-    <tr th:each="orderLine : ${orders}">
-        <td th:text="${orderline.orderlineId}"> er ID på din ordre!</td>
+    <tr th:each="orderline : ${orders}">
+        <td th:text="${orderline.orderlineId}">ID på din ordre</td>
+        <td th:text="${orderline.quantity}">Antal</td>
+        <td th:text="${orderline.price}">Pris</td>
         <td>
-            <!--        TODO create buttons for each order, so that you can buy them.
-            TODO Will probably need to be able to change the status of the order-->
-            <!--           <form method="post">-->
-            <!--                <button type="submit" formaction="/buy" th:value="${orderline.orderlineId}">Køb</button>-->
-            <!--            </form>-->
+            <form method="post" action="/buy">
+                <button type="submit" name="orderlineId" th:value="${orderline.orderlineId}">Køb</button>
+            </form>
         </td>
     </tr>
     </tbody>
@@ -33,5 +33,3 @@
 
 </body>
 </html>
-
-

@@ -14,29 +14,54 @@ import java.util.List;
 
 public class OrderController
 {
+
+    //Din gamle kode som jeg ændrede på står her så du kan se hvad der er ændret og tilføjer i forhold til den nye
+    /*
+{
+    List<Orderline> orders = new ArrayList<>();                 Rykkede arraylisten længere ned
+
+    String email = ctx.formParam("email");                      Ændrede så vi kigger efter currentUser i stedet (kunne se at du havde en længere nede)
+    String password = ctx.formParam("password");                Tilføjede en metode til at tjekke hvem currentUser er
+
+    try
+    {
+
+        User user = UserMapper.login(email, password, connectionPool);      Fjernede denne linje
+        ctx.sessionAttribute("currentUser", user);                          Denne ryger også med ud
+
+        orders = OrderlineMapper.getAllOrderlinePerUser(user.getUserId(), connectionPool);      { Det forbliver det samme
+        ctx.attribute("orders", orders);
+        ctx.attribute("shoppingBasketMessage", "Her er din indkøbskurv");
+        ctx.render("shoppingBasket.html");
+    } catch (DatabaseException e)
+    {
+        // Hvis nej, send tilbage til login side med fejl besked
+        ctx.attribute("shoppingBasketMessage","Kunne ikke finde dine ordrer!");
+        ctx.render("orderCupcakes.html");
+    }
+}                                                                                               }
+*/
     public static void checkOutCart(Context ctx, ConnectionPool connectionPool)
     {
-        List<Orderline> orders = new ArrayList<>();
-        // Hent form parametre
-        String email = ctx.formParam("email");
-        String password = ctx.formParam("password");
+        User user = ctx.sessionAttribute("currentUser");
 
-        //TODO kunne logge ind med email også
-        // Check om bruger findes i DB med de angivne username + password
-        try
-        {
-            // maybe don't login again, but we need a current user?
-            User user = UserMapper.login(email, password, connectionPool);
-            ctx.sessionAttribute("currentUser", user);
+        if (user == null) {
+            ctx.attribute("message", "Du skal logge ind for at se din indkøbskurv."); //Hvis der nu er en fejl med login
+            ctx.redirect("/login"); // Du bliver sendt tilbage til login hvis du ikke er logget ind
+            return;
+        }
+
+        List<Orderline> orders = new ArrayList<>();
+
+        try {
             orders = OrderlineMapper.getAllOrderlinePerUser(user.getUserId(), connectionPool);
             ctx.attribute("orders", orders);
             ctx.attribute("shoppingBasketMessage", "Her er din indkøbskurv");
             ctx.render("shoppingBasket.html");
-        } catch (DatabaseException e)
-        {
-            // Hvis nej, send tilbage til login side med fejl besked
-            ctx.attribute("shoppingBasketMessage","Kunne ikke finde dine ordrer!");
+        } catch (DatabaseException e) {
+            ctx.attribute("shoppingBasketMessage", "Kunne ikke finde dine ordrer!");
             ctx.render("orderCupcakes.html");
         }
     }
+
 }
