@@ -55,7 +55,8 @@ public class OrderlineMapper
                 String toppingName = rs.getString("topping_name");
                 int quantity = rs.getInt("quantity");
                 BigDecimal price = rs.getBigDecimal("price");
-                orders.add(new Orderline(orderlineId, orderId, bottomId, toppingId, quantity, price));
+                Orderline orderLine = new Orderline(orderlineId, orderId, bottomId, toppingId, quantity, price);
+                orders.add(orderLine);
             }
         } catch (SQLException e) {
             throw new DatabaseException("Fejl!",e.getMessage());
