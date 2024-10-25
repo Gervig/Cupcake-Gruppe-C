@@ -2,6 +2,7 @@ package app;
 
 import app.config.ThymeleafConfig;
 import app.controllers.UserController;
+import app.controllers.OrderController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
@@ -32,6 +33,10 @@ public class Main
 
         app.get("/createuser", ctx -> ctx.render("createUser.html"));
         app.post("/createuser", ctx -> UserController.createUser(ctx, connectionPool));
+
+        //Admin side
+        app.get("/listOfOrders", ctx -> ctx.render("listOfOrders.html"));
+        app.post("/listOfOrders", ctx -> OrderController.getAllOrders(ctx, connectionPool));
 
         //Testing
         app.get("/orderCupcakes", ctx -> ctx.render("orderCupcakes.html"));
