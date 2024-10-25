@@ -148,3 +148,26 @@ select{
 .flexbox-item-4 {
     margin-right: 2%;
 }
+
+/*Table styling*/
+.button-on-line{
+    /*Sørger for at update knappen er på linjen og ikke nedenunder*/
+    white-space: nowrap;
+    padding-right: 5px;
+}
+
+.inputbox{
+    width: 75px;
+}
+
+.table-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+thead {
+    background-color: rgb(52, 28, 92);
+    color: white;
+}
