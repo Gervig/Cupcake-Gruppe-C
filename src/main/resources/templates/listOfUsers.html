@@ -39,16 +39,24 @@
         </thead>
         <tbody>
         <tr th:each="user : ${users}">
-            <td th:text="${user.id}">User ID</td>
-            <td th:text="${user.username}">Username</td>
+            <td th:text="${user.userId}">User ID</td>
+            <td th:text="${user.userName}">Username</td>
             <td th:text="${user.firstName}">First Name</td>
             <td th:text="${user.lastName}">Last Name</td>
             <td th:text="${user.email}">Email</td>
             <td th:text="${user.balance}">Balance</td>
             <td th:text="${user.postcode}">Postcode</td>
             <td th:text="${user.role}">Role</td>
+            <td>
+                <form th:action="@{/updateBalance}" method="post">
+                    <input type="hidden" th:name="userId" th:value="${user.userId}" />
+                    <input type="number" th:name="newBalance" min="0" step="0.01" th:value="${user.balance}" />
+                    <button type="submit">Update</button>
+                </form>
+            </td>
         </tr>
         </tbody>
+
     </table>
 
 </div>

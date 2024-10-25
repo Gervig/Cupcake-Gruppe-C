@@ -8,15 +8,43 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class UserController
 {
-    public static void addRoutes(Javalin app, ConnectionPool connectionPool)
-    {
+    public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
         app.get("createuser", ctx -> ctx.render("createuser.html"));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
+        app.get("listOfUsers", ctx -> listUsers(ctx, connectionPool));
+        app.post("updateBalance", ctx -> updateUserBalance(ctx, connectionPool));
+    }
+
+    public static void updateUserBalance(Context ctx, ConnectionPool connectionPool) {
+        int userId = Integer.parseInt(ctx.formParam("userId"));
+        BigDecimal newBalance = new BigDecimal(ctx.formParam("newBalance"));
+
+        try {
+            UserMapper.updateUserBalance(userId, newBalance, connectionPool);
+            ctx.attribute("message", "Balance updated successfully!");
+        } catch (DatabaseException e) {
+            ctx.attribute("message", "Error updating balance: " + e.getMessage());
+        }
+
+        ctx.redirect("/listOfUsers"); // Redirect back to the user list after update
+    }
+
+
+    public static void listUsers(Context ctx, ConnectionPool connectionPool) {
+        try {
+            List<User> users = UserMapper.getAllUsers(connectionPool);
+            ctx.attribute("users", users);
+            ctx.render("listOfUsers.html");
+        } catch (DatabaseException e) {
+            ctx.attribute("message", "Unable to retrieve users from the database.");
+            ctx.render("error.html");
+        }
     }
 
     public static void createUser(Context ctx, ConnectionPool connectionPool)
@@ -72,27 +100,26 @@ public class UserController
 
     public static void login(Context ctx, ConnectionPool connectionPool)
     {
-        // Hent form parametre
         String email = ctx.formParam("email");
-//        String email = ctx.formParam("email");
         String password = ctx.formParam("password");
 
-        //TODO kunne logge ind med email også
-
-        // Check om bruger findes i DB med de angivne username + password
         try
         {
             User user = UserMapper.login(email, password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
-            // Hvis ja, send videre til forsiden med login besked
-            ctx.attribute("message", "Du er nu logget ind");
-            ctx.render("orderCupcakes.html");
+
+            if ("admin".equals(user.getRole())) {
+                ctx.attribute("message", "Velkommen, Admin!");
+                ctx.render("admin.html");
+            } else {
+                ctx.attribute("message", "Du er nu logget ind");
+                ctx.render("orderCupcakes.html");
+            }
         } catch (DatabaseException e)
         {
-            // Hvis nej, send tilbage til login side med fejl besked
             ctx.attribute("message", e.getMessage());
             ctx.render("login.html");
         }
-
     }
+
 }
