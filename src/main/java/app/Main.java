@@ -1,6 +1,7 @@
 package app;
 
 import app.config.ThymeleafConfig;
+import app.controllers.OrderController;
 import app.controllers.UserController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
@@ -33,8 +34,10 @@ public class Main
         app.get("/createuser", ctx -> ctx.render("createUser.html"));
         app.post("/createuser", ctx -> UserController.createUser(ctx, connectionPool));
 
-        //Testing
         app.get("/orderCupcakes", ctx -> ctx.render("orderCupcakes.html"));
+
+        app.get("/shoppingBasket", ctx -> ctx.render("shoppingBasket.html"));
+        app.post("/shoppingBasket", ctx -> OrderController.checkOutCart(ctx, connectionPool));
 
         UserController.addRoutes(app, connectionPool);
     }

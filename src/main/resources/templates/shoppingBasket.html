@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>Frontpage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" th:href="@{/}">
+        <img alt="logo" src="../public/images/headerImage.png" th:src="@{/images/headerImage.png}"/>
+    </a>
+</header>
+
+<p>Hej <span th:text="${#ctx.session.currentUser.userName}"></span> her kan du se dine ordrer!</p>
+
+<tbody>
+<tr th:unless="${#ctx.orders==null}" th:each="task: ${#ctx.orders}">
+    <td th:text="${orderline.orderlineId}"></td>
+    <td>
+        <!--        TODO create buttons for each order, so that you can buy them.
+        TODO Will probably need to be able to change the status of the order-->
+        <!--           <form method="post">-->
+        <!--                <button type="submit" formaction="/buy" th:value="${orderline.orderlineId}">Køb</button>-->
+        <!--            </form>-->
+    </td>
+</tr>
+</tbody>
+
+</body>
+</html>
+
+
