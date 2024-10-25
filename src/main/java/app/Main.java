@@ -34,7 +34,9 @@ public class Main
         app.post("/createuser", ctx -> UserController.createUser(ctx, connectionPool));
 
         app.get("/orderCupcakes", ctx -> ctx.render("orderCupcakes.html"));
-        app.post("/orderCupcakes", ctx -> OrderController.checkOutCart(ctx, connectionPool));
+
+        app.get("/shoppingBasket", ctx -> ctx.render("shoppingBasket.html"));
+        app.post("/shoppingBasket", ctx -> OrderController.checkOutCart(ctx, connectionPool));
 
         UserController.addRoutes(app, connectionPool);
     }
