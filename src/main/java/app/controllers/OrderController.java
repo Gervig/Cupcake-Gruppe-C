@@ -21,9 +21,9 @@ public class OrderController {
         try {
             List<Order> orders = OrderMapper.getAllOrders(connectionPool);
             ctx.attribute("orders", orders);
-            ctx.render("/templates/admin_orders.html");
+            ctx.render("listOfOrders.html");
         } catch (DatabaseException e) {
-            ctx.attribute("message", "Kunne ikkke henter ordre: " + e.getMessage());
+            ctx.attribute("message", "Kunne ikke hente ordre: " + e.getMessage());
             ctx.status(500).render("/templates/error.html");
         }
     }
