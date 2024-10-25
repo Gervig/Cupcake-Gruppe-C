@@ -8,15 +8,43 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class UserController
 {
-    public static void addRoutes(Javalin app, ConnectionPool connectionPool)
-    {
+    public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
         app.get("createuser", ctx -> ctx.render("createuser.html"));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
+        app.get("listOfUsers", ctx -> listUsers(ctx, connectionPool));
+        app.post("updateBalance", ctx -> updateUserBalance(ctx, connectionPool));
+    }
+
+    public static void updateUserBalance(Context ctx, ConnectionPool connectionPool) {
+        int userId = Integer.parseInt(ctx.formParam("userId"));
+        BigDecimal newBalance = new BigDecimal(ctx.formParam("newBalance"));
+
+        try {
+            UserMapper.updateUserBalance(userId, newBalance, connectionPool);
+            ctx.attribute("message", "Balance updated successfully!");
+        } catch (DatabaseException e) {
+            ctx.attribute("message", "Error updating balance: " + e.getMessage());
+        }
+
+        ctx.redirect("/listOfUsers"); // Redirect back to the user list after update
+    }
+
+
+    public static void listUsers(Context ctx, ConnectionPool connectionPool) {
+        try {
+            List<User> users = UserMapper.getAllUsers(connectionPool);
+            ctx.attribute("users", users);
+            ctx.render("listOfUsers.html");
+        } catch (DatabaseException e) {
+            ctx.attribute("message", "Unable to retrieve users from the database.");
+            ctx.render("error.html");
+        }
     }
 
     public static void createUser(Context ctx, ConnectionPool connectionPool)
@@ -93,4 +121,5 @@ public class UserController
             ctx.render("login.html");
         }
     }
+
 }
