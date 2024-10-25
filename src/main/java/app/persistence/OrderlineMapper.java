@@ -46,6 +46,7 @@ public class OrderlineMapper
             ResultSet rs = ps.executeQuery();
             while (rs.next())
             {
+                // bottomName and toppingName currently not used
                 int orderlineId = rs.getInt("orderline_id");
                 int orderId = rs.getInt("order_id");
                 int bottomId = rs.getInt("bottom_id");
