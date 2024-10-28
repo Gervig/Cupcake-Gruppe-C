@@ -6,7 +6,7 @@ import app.entities.User;
 import app.persistence.OrderlineMapper;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.persistence.OrderMapper;
+import app.persistence.OrdersMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -21,7 +21,7 @@ public class OrderController {
 
     public static void getAllOrders(Context ctx, ConnectionPool connectionPool) {
         try {
-            List<Orders> orders = OrderMapper.getAllOrders(connectionPool);
+            List<Orders> orders = OrdersMapper.getAllOrders(connectionPool);
             ctx.attribute("orders", orders);
             ctx.render("listOfOrders.html");
         } catch (DatabaseException e) {
@@ -34,7 +34,7 @@ public class OrderController {
     private static void getOrderById(Context ctx, ConnectionPool connectionPool) {
         try {
             int orderId = Integer.parseInt(ctx.pathParam("id"));
-            List<Orders> order = OrderMapper.getOrdersByUserId(orderId, connectionPool);
+            List<Orders> order = OrdersMapper.getOrdersByUserId(orderId, connectionPool);
 
             if (order != null) {
                 ctx.attribute("order", order);

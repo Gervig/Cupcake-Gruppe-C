@@ -9,7 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderMapper {
+public class OrdersMapper
+{
 
     public static List<Orders> getOrdersByUserId(int userId, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "SELECT * FROM public.\"orders\" WHERE user_id = ?";
