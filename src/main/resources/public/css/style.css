@@ -148,3 +148,62 @@ select{
 .flexbox-item-4 {
     margin-right: 2%;
 }
+
+/*Table styling*/
+.button-on-line{
+    /*Sørger for at update knappen er på linjen og ikke nedenunder*/
+    white-space: nowrap;
+    padding-right: 5px;
+}
+
+.inputbox{
+    width: 75px;
+}
+
+.table-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+thead {
+    background-color: rgb(52, 28, 92);
+    color: white;
+}
+
+
+.basket{
+    background-color: rgb(245, 245, 245);
+    border-style: hidden;
+    color: rgb(170, 170, 170);
+}
+
+.shopping-basket-table {
+    border-collapse: collapse;
+    font-size: 1.2rem;
+}
+
+.shopping-basket-table td, .task-table th{
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.shopping-basket-table tr:nth-child(even){
+    background-color: silver;
+}
+
+
+.shopping-basket-table {
+    border-collapse: collapse;
+    font-size: 1.2rem;
+}
+
+.shopping-basket-table td, .task-table th{
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.shopping-basket-table tr:nth-child(even){
+    background-color: silver;
+}

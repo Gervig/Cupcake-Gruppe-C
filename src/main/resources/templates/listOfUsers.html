@@ -23,43 +23,53 @@
     <h1>List of Users</h1>
 
     <p th:if="${message}" th:text="${message}" class="error-message"></p>
+    <div class="table-container">
+        <table id="listOfUsersTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Balance</th>
+                <th>Postcode</th>
+                <th>Role</th>
+                <th>Update balance</th>
 
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Balance</th>
-            <th>Postcode</th>
-            <th>Role</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.userId}">User ID</td>
-            <td th:text="${user.userName}">Username</td>
-            <td th:text="${user.firstName}">First Name</td>
-            <td th:text="${user.lastName}">Last Name</td>
-            <td th:text="${user.email}">Email</td>
-            <td th:text="${user.balance}">Balance</td>
-            <td th:text="${user.postcode}">Postcode</td>
-            <td th:text="${user.role}">Role</td>
-            <td>
-                <form th:action="@{/updateBalance}" method="post">
-                    <input type="hidden" th:name="userId" th:value="${user.userId}" />
-                    <input type="number" th:name="newBalance" min="0" step="0.01" th:value="${user.balance}" />
-                    <button type="submit">Update</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userId}">User ID</td>
+                <td th:text="${user.userName}">Username</td>
+                <td th:text="${user.firstName}">First Name</td>
+                <td th:text="${user.lastName}">Last Name</td>
+                <td th:text="${user.email}">Email</td>
+                <td th:text="${user.balance}">Balance</td>
+                <td th:text="${user.postcode}">Postcode</td>
+                <td th:text="${user.role}">Role</td>
+                <td>
+                    <div class="button-on-line">
+                        <form th:action="@{/updateBalance}" method="post">
+                            <input type="hidden" class="inputbox" th:name="userId" th:value="${user.userId}"/>
+                            <input type="number" class="inputbox" th:name="newBalance" min="0" step="1"
+                                   th:value="${user.balance}" />
+                            <button type="submit">Update</button>
+                        </form>
+                    </div>
+                </td>
 
-    </table>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="flexbox-container1">
+        <div class="flexbox-item flexbox-item-lt-btn">
+            <a href="admin.html" th:href="@{admin}"class="button" th:style="'color:rgb(52, 28, 92)'"/>Tilbage</a>
+        </div>
+    </div>
 
 </div>
-
 </body>
 </html>
