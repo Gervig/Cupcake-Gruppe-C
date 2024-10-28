@@ -42,6 +42,7 @@ public class Main
 
         //Testing
         app.get("/orderCupcakes", ctx -> ctx.render("orderCupcakes.html"));
+        app.get("/listOfCupcakes", ctx -> ctx.render("listOfCupcakes.html"));
 
         UserController.addRoutes(app, connectionPool);
         OrderController.addRoutes(app, connectionPool);
