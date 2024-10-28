@@ -44,5 +44,6 @@ public class Main
         app.get("/orderCupcakes", ctx -> ctx.render("orderCupcakes.html"));
 
         UserController.addRoutes(app, connectionPool);
+        OrderController.addRoutes(app, connectionPool);
     }
 }
