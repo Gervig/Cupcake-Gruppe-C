@@ -1,29 +1,31 @@
 package app.entities;
 
+import java.math.BigDecimal;
+
 public class Bottoms
 {
-    private int buttomsID;
+    private int bottomsID;
     private String bottomsName;
-    private float price;
+    private BigDecimal price;
 
-    public Bottoms(int buttomsID, String bottomsName, float price)
+    public Bottoms(int bottomsID, String bottomsName, BigDecimal price)
     {
-        this.buttomsID = buttomsID;
+        this.bottomsID = bottomsID;
         this.bottomsName = bottomsName;
         this.price = price;
     }
 
-    public int getButtomsID()
+    public int getBottomsID()
     {
-        return buttomsID;
+        return bottomsID;
     }
 
-    public String getBottomsName()
+    public String getBottomName()
     {
         return bottomsName;
     }
 
-    public float getPrice()
+    public BigDecimal getPrice()
     {
         return price;
     }
