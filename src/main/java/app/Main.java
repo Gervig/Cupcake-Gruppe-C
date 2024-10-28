@@ -35,8 +35,6 @@ public class Main
         app.post("/createuser", ctx -> UserController.createUser(ctx, connectionPool));
 
         //Admin side
-        app.get("/listOfOrders", ctx -> ctx.render("listOfOrders.html"));
-        app.post("/listOfOrders", ctx -> OrderController.getAllOrderlines(ctx, connectionPool));
 
         //Testing
         app.get("/orderCupcakes", ctx -> ctx.render("orderCupcakes.html"));

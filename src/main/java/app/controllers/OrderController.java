@@ -18,14 +18,14 @@ import java.util.List;
 public class OrderController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
-        app.get("/admin/listOfOrderlines", ctx -> getAllOrderlines(ctx, connectionPool));
+        app.get("/listOfOrderlines", ctx -> getAllOrderlines(ctx, connectionPool));
     }
 
     public static void getAllOrderlines(Context ctx, ConnectionPool connectionPool) {
         try {
             List<Orderline> orderlines = OrderlineMapper.getAllOrderlines(connectionPool);
             ctx.attribute("orderlines", orderlines);
-            ctx.render("/templates/listOfOrderlines.html");
+            ctx.render("listOfOrders.html");
         } catch (DatabaseException e) {
             ctx.attribute("message", "Kunne ikke hente ordrelinjer: " + e.getMessage());
             ctx.status(500).render("/templates/error.html");
