@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Indkøbskurv</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<header>
+    <a href="index.html" th:href="@{/}">
+        <img alt="logo" src="../public/images/headerImage.png" th:src="@{/images/headerImage.png}"/>
+    </a>
+</header>
+
+<p>Hej <span th:text="${#ctx.session.currentUser.userName}">Bruger</span>, her kan du se dine ordrer!</p>
+<p th:text="${shoppingBasketMessage}"></p>
+<!--TODO Mangler nok lidt finere CSS-->
+<table class="shopping-basket-table">
+    <tbody>
+    <tr th:each="orderline : ${orders}">
+        <td th:text="${orderline.orderlineId}">ID på din ordre</td>
+        <td th:text="${orderline.quantity}">Antal</td>
+        <td th:text="${orderline.price}">Pris</td>
+        <td>
+            <form method="post" action="/buy">
+                <!--                TODO få denne button til at ændre status på ordren-->
+                <button type="submit" name="orderlineId" th:value="${orderline.orderlineId}">Køb</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

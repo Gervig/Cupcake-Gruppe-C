@@ -50,6 +50,29 @@ public class OrderController {
         }
     }
 
+    public static void checkOutCart(Context ctx, ConnectionPool connectionPool)
+    {
+        User user = ctx.sessionAttribute("currentUser");
+
+        if (user == null) {
+            ctx.attribute("message", "Du skal logge ind for at se din indkøbskurv."); //Hvis der nu er en fejl med login
+            ctx.redirect("/login"); // Du bliver sendt tilbage til login hvis du ikke er logget ind
+            return;
+        }
+
+        List<Orderline> orders = new ArrayList<>();
+
+        try {
+            orders = OrderlineMapper.getAllOrderlinePerUser(user.getUserId(), connectionPool);
+            ctx.attribute("orders", orders);
+            ctx.attribute("shoppingBasketMessage", "Her er din indkøbskurv");
+            ctx.render("shoppingBasket.html");
+        } catch (DatabaseException e) {
+            ctx.attribute("shoppingBasketMessage", "Kunne ikke finde dine ordrer!");
+            ctx.render("orderCupcakes.html");
+        }
+    }
+
 
     private static void createNewOrder(Context ctx, ConnectionPool connectionPool) {
     }

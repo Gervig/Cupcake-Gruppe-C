@@ -12,10 +12,13 @@ import java.util.List;
 
 public class UserController
 {
-    public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
+    public static void addRoutes(Javalin app, ConnectionPool connectionPool)
+    {
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
         app.get("createuser", ctx -> ctx.render("createuser.html"));
+        app.get("/shoppingBasket", ctx -> OrderController.checkOutCart(ctx, connectionPool));
+        app.post("/shoppingBasket", ctx -> OrderController.checkOutCart(ctx, connectionPool));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
         app.get("listOfUsers", ctx -> listUsers(ctx, connectionPool));
         app.post("updateBalance", ctx -> updateUserBalance(ctx, connectionPool));
@@ -100,9 +103,14 @@ public class UserController
 
     public static void login(Context ctx, ConnectionPool connectionPool)
     {
+        // Hent form parametre
         String email = ctx.formParam("email");
+//        String email = ctx.formParam("email");
         String password = ctx.formParam("password");
 
+        //TODO kunne logge ind med email også
+
+        // Check om bruger findes i DB med de angivne username + password
         try
         {
             User user = UserMapper.login(email, password, connectionPool);
@@ -117,9 +125,10 @@ public class UserController
             }
         } catch (DatabaseException e)
         {
+            // Hvis nej, send tilbage til login side med fejl besked
             ctx.attribute("message", e.getMessage());
             ctx.render("login.html");
         }
-    }
 
+    }
 }
