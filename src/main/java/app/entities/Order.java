@@ -9,7 +9,7 @@ public class Order {
     private BigDecimal totalPrice;
     private List<OrderLine> orderLines;
 
-    public Order(int orderId, int userId, BigDecimal totalPrice, List<OrderLine> orderLines) {
+    public Order(int orderId, int userId, BigDecimal totalPrice) {
         this.orderId = orderId;
         this.userId = userId;
         this.totalPrice = totalPrice;
