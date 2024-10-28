@@ -33,6 +33,35 @@
 <div class="page-content">
     <h1>Alle ordrer</h1>
 
+    <p th:if="${message}" th:text="${message}" class="error-message"></p>
+    <div class="table-container">
+        <table id="listOfUsersTable">
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>User ID</th>
+<!--                <th>Order date</th>-->
+                <th>Total price</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.orderId}">Order ID</td>
+                <td th:text="${order.userId}">User ID</td>
+<!--                <td th:text="${order.orderDate}">Order date</td>-->
+                <td th:text="${order.totalPrice}">Total price</td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="flexbox-container1">
+        <div class="flexbox-item flexbox-item-lt-btn">
+            <a href="admin.html" th:href="@{admin}"class="button" th:style="'color:rgb(52, 28, 92)'"/>Tilbage</a>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>
