@@ -1,6 +1,7 @@
 package app.entities;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 public class Order {
@@ -46,5 +47,9 @@ public class Order {
 
     public void setOrderLines(List<Orderline> orderlines) {
         this.orderlines = orderlines;
+    }
+
+    public void setOrderDate(Date orderDate)
+    {
     }
 }

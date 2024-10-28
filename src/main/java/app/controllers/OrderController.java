@@ -2,10 +2,12 @@ package app.controllers;
 
 import app.entities.Order;
 import app.entities.Orderline;
+import app.entities.Orders;
 import app.entities.User;
 import app.persistence.OrderlineMapper;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.persistence.OrdersMapper;
 import app.persistence.OrderMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -16,18 +18,16 @@ import java.util.List;
 public class OrderController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
-        app.get("/admin/orders", ctx -> getAllOrders(ctx, connectionPool));
-        app.get("/admin/orders/:id", ctx -> getOrderById(ctx, connectionPool));
-        app.post("/admin/orders/new", ctx -> createNewOrder(ctx, connectionPool));
+        app.get("/admin/listOfOrderlines", ctx -> getAllOrderlines(ctx, connectionPool));
     }
 
-    public static void getAllOrders(Context ctx, ConnectionPool connectionPool) {
+    public static void getAllOrderlines(Context ctx, ConnectionPool connectionPool) {
         try {
-            List<Order> orders = OrderMapper.getAllOrders(connectionPool);
-            ctx.attribute("orders", orders);
-            ctx.render("/templates/admin_orders.html");
+            List<Orderline> orderlines = OrderlineMapper.getAllOrderlines(connectionPool);
+            ctx.attribute("orderlines", orderlines);
+            ctx.render("/templates/listOfOrderlines.html");
         } catch (DatabaseException e) {
-            ctx.attribute("message", "Kunne ikkke henter ordre: " + e.getMessage());
+            ctx.attribute("message", "Kunne ikke hente ordrelinjer: " + e.getMessage());
             ctx.status(500).render("/templates/error.html");
         }
     }

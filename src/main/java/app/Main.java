@@ -36,11 +36,12 @@ public class Main
 
         //Admin side
         app.get("/listOfOrders", ctx -> ctx.render("listOfOrders.html"));
-        app.post("/listOfOrders", ctx -> OrderController.getAllOrders(ctx, connectionPool));
+        app.post("/listOfOrders", ctx -> OrderController.getAllOrderlines(ctx, connectionPool));
 
         //Testing
         app.get("/orderCupcakes", ctx -> ctx.render("orderCupcakes.html"));
 
         UserController.addRoutes(app, connectionPool);
+        OrderController.addRoutes(app, connectionPool);
     }
 }

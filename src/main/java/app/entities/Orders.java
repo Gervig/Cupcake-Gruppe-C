@@ -3,37 +3,45 @@ package app.entities;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class Orders {
+public class Orders
+{
     private int orderId;
     private int userId;
     private Timestamp orderDate;
     private BigDecimal totalPrice;
 
-    public Orders(int orderId, int userId, Timestamp orderDate, BigDecimal totalPrice)
-    {
-        this.orderId = orderId;
-        this.userId = userId;
-        this.orderDate = orderDate;
-        this.totalPrice = totalPrice;
+    public Orders() {
     }
 
-    public int getOrderId()
-    {
+    public int getOrderId() {
         return orderId;
     }
 
-    public int getUserId()
-    {
+    public int getUserId() {
         return userId;
     }
 
-    public Timestamp getOrderDate()
-    {
+    public Timestamp getOrderDate() {
         return orderDate;
     }
 
-    public BigDecimal getTotalPrice()
-    {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setOrderDate(Timestamp orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

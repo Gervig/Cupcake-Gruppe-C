@@ -1,40 +1,32 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
-<title>Frontpage</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
-<link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
-
+<head>
+    <title>All Orderlines</title>
+    <link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
-
 <body>
-
-<header>
-    <a href="index.html" th:href="@{/}">
-        <img alt="logo" src="../public/images/headerImage.png" th:src="@{/images/headerImage.png}"/>
-    </a>
-</header>
-
-<div class="toolbar">
-    <div class="flexbox-container">
-        <div class="flexbox-item flexbox-item-1"></div>
-        <div class="flexbox-item flexbox-item-2">Kunder</div>
-        <!--Change the E-mail with placeholder            -->
-        <div class="flexbox-item flexbox-item-3">E-mail</div>
-        <div class="flexbox-item flexbox-item-4"><a><span
-                class="material-symbols-outlined">shopping_basket</span></a>
-        </div>
-    </div>
-</div>
-
-<div class="page-content">
-    <h1>Alle ordrer</h1>
-
-</div>
+<h1>All Orderlines</h1>
+<table>
+    <tr>
+        <th>Orderline ID</th>
+        <th>Order ID</th>
+        <th>Bottom ID</th>
+        <th>Bottom Name</th>
+        <th>Topping ID</th>
+        <th>Topping Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+    </tr>
+    <tr th:each="orderline : ${orderlines}">
+        <td th:text="${orderline.orderlineId}"></td>
+        <td th:text="${orderline.orderId}"></td>
+        <td th:text="${orderline.bottomId}"></td>
+        <td th:text="${orderline.bottomName}"></td>
+        <td th:text="${orderline.toppingId}"></td>
+        <td th:text="${orderline.toppingName}"></td>
+        <td th:text="${orderline.quantity}"></td>
+        <td th:text="${orderline.price}"></td>
+    </tr>
+</table>
 </body>
 </html>
-
-
