@@ -12,9 +12,7 @@ import java.util.List;
 public class OrderController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
-        app.get("/admin/orders", ctx -> getAllOrders(ctx, connectionPool));
-        app.get("/admin/orders/:id", ctx -> getOrderById(ctx, connectionPool));
-        app.post("/admin/orders/new", ctx -> createNewOrder(ctx, connectionPool));
+        app.get("listOfOrders", ctx -> getAllOrders(ctx, connectionPool));
     }
 
     public static void getAllOrders(Context ctx, ConnectionPool connectionPool) {
