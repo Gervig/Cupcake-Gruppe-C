@@ -32,9 +32,6 @@
         <div class="flexbox-item flexbox-item-3">E-mail</div>
         <div class="flexbox-item flexbox-item-4">
             <button class="basket" onclick="window.location.href='shoppingBasket'"><span class="material-symbols-outlined">shopping_basket</span></a></button>
-<!--            <a href="shoppingBasket.html" th:href="@{shoppingBasket}" th:style="'color: rgb(170, 170, 170)'">-->
-                <!--Make sure the basket works
-                <span class="material-symbols-outlined">shopping_basket</span></a>     -->
         </div>
     </div>
 </div>
@@ -47,45 +44,34 @@
         <div>
             <select name="bottom" id="bottom" required>
                 <option value="" disabled selected>Vælg bund</option>
-                <option value="1">Vanilje</option>
-                <option value="2">Chokolade</option>
-                <option value="3">Andet</option>
+                <option th:each="bottom : ${bottomsList}" th:value="${bottom.getBottomsID}" th:text="${bottom.getBottomName}"></option>
             </select>
 
 
             <select name="topping" id="topping" required>
                 <option value="" disabled selected>Vælg topping</option>
-                <option value="1">Vanilje</option>
-                <option value="2">Chokolade</option>
-                <option value="3">Andet</option>
-                <option value="3">3</option>
-                <option value="3">3</option>
+                <option th:each="topping : ${toppingsList}" th:value="${topping.getToppingsID}" th:text="${topping.getToppingName}"></option>
             </select>
+
 
             <select name="amount" id="antal" required>
                 <option value="" disabled selected>Vælg antal</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="3">3</option>
-                <option value="3">3</option>
-                <option value="3">3</option>
-                <option value="3">3</option>
-                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="12">12</option>
+                <option value="16">16</option>
+                <option value="20">20</option>
             </select>
         </div>
         <!--
             <button type="submit" formaction="/done" th:value="${orderItem.orderItem_id}">Tilføj til kurv</button>
         -->
-        <button type="submit" formaction="index.html">
+        <!--<button type="submit" formaction="index.html">
             Tilføj til kurv
             <a href="index.html" th:href="@{/}">
-            </a></button>
-        <!--
-            th:each="task: ${#ctx.taskList}">
-            <td th:text="${task.name}"></td>
-            <td><button type="submit" formaction="/done" th:value="${task.task_id}">Done</button></td>
-        -->
+            </a></button>-->
+        <button type="submit"<a href="orderCupcakes.html" th:href="@{orderCupcakes}" class="button" style="color: rgb(52, 28, 92);">Tilføj til kurv </a></button>
     </form>
 
 </div>
