@@ -50,6 +50,21 @@ button[type=submit]:hover{
     background-color: rgb(170, 170, 170);
 }
 
+.smallbutton{
+    margin: 1%;
+    padding: 0.5%;
+    border-radius: 8px;
+    font-family: Arial;
+    background-color: rgb(200, 200, 200);
+    border-style: hidden;
+    color: rgb(52, 28, 92);
+    white-space: nowrap;
+}
+
+.smallbutton:hover{
+    background-color: rgb(170, 170, 170);
+}
+
 .button {
     display: inline-block;
     padding: 8px;
