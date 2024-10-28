@@ -2,7 +2,8 @@ package app.entities;
 
 import java.math.BigDecimal;
 
-public class OrderLine {
+public class Orderline
+{
     private int orderLineId;
     private int orderId;
     private int bottomId;
@@ -10,7 +11,7 @@ public class OrderLine {
     private int quantity;
     private BigDecimal price;
 
-    public OrderLine(int orderLineId, int orderId, int bottomId, int toppingId, int quantity, BigDecimal price) {
+    public Orderline(int orderLineId, int orderId, int bottomId, int toppingId, int quantity, BigDecimal price) {
         this.orderLineId = orderLineId;
         this.orderId = orderId;
         this.bottomId = bottomId;

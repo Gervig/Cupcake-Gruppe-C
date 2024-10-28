@@ -7,13 +7,13 @@ public class Order {
     private int orderId;
     private int userId;
     private BigDecimal totalPrice;
-    private List<OrderLine> orderLines;
+    private List<Orderline> orderlines;
 
-    public Order(int orderId, int userId, BigDecimal totalPrice, List<OrderLine> orderLines) {
+    public Order(int orderId, int userId, BigDecimal totalPrice, List<Orderline> orderlines) {
         this.orderId = orderId;
         this.userId = userId;
         this.totalPrice = totalPrice;
-        this.orderLines = orderLines;
+        this.orderlines = orderlines;
     }
 
     public int getOrderId() {
@@ -28,8 +28,8 @@ public class Order {
         return totalPrice;
     }
 
-    public List<OrderLine> getOrderLines() {
-        return orderLines;
+    public List<Orderline> getOrderLines() {
+        return orderlines;
     }
 
     public void setOrderId(int orderId) {
@@ -44,7 +44,7 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public void setOrderLines(List<OrderLine> orderLines) {
-        this.orderLines = orderLines;
+    public void setOrderLines(List<Orderline> orderlines) {
+        this.orderlines = orderlines;
     }
 }

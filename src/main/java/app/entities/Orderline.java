@@ -4,16 +4,15 @@ import java.math.BigDecimal;
 
 public class Orderline
 {
-    private int orderlineId;
+    private int orderLineId;
     private int orderId;
     private int bottomId;
     private int toppingId;
     private int quantity;
     private BigDecimal price;
 
-    public Orderline(int orderlineId, int orderId, int bottomId, int toppingId, int quantity, BigDecimal price)
-    {
-        this.orderlineId = orderlineId;
+    public Orderline(int orderLineId, int orderId, int bottomId, int toppingId, int quantity, BigDecimal price) {
+        this.orderLineId = orderLineId;
         this.orderId = orderId;
         this.bottomId = bottomId;
         this.toppingId = toppingId;
@@ -21,33 +20,51 @@ public class Orderline
         this.price = price;
     }
 
-    public int getOrderlineId()
-    {
-        return orderlineId;
+    public int getOrderLineId() {
+        return orderLineId;
     }
 
-    public int getOrderId()
-    {
+    public int getOrderId() {
         return orderId;
     }
 
-    public int getBottomId()
-    {
+    public int getBottomId() {
         return bottomId;
     }
 
-    public int getToppingId()
-    {
+    public int getToppingId() {
         return toppingId;
     }
 
-    public int getQuantity()
-    {
+    public int getQuantity() {
         return quantity;
     }
 
-    public BigDecimal getPrice()
-    {
+    public BigDecimal getPrice() {
         return price;
+    }
+
+    public void setOrderLineId(int orderLineId) {
+        this.orderLineId = orderLineId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setBottomId(int bottomId) {
+        this.bottomId = bottomId;
+    }
+
+    public void setToppingId(int toppingId) {
+        this.toppingId = toppingId;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

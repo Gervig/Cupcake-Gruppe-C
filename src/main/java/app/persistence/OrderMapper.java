@@ -1,7 +1,7 @@
 package app.persistence;
 
 import app.entities.Order;
-import app.entities.OrderLine;
+import app.entities.Orderline;
 import app.exceptions.DatabaseException;
 
 import java.math.BigDecimal;
@@ -30,9 +30,9 @@ public class OrderMapper {
                 int orderId = rs.getInt("order_id");
                 BigDecimal totalPrice = rs.getBigDecimal("total_price");
 
-                List<OrderLine> orderLines = getOrderLinesByOrderId(orderId, connection);
+                List<Orderline> orderlines = getOrderLinesByOrderId(orderId, connection);
 
-                orders.add(new Order(orderId, userId, totalPrice, orderLines));
+                orders.add(new Order(orderId, userId, totalPrice, orderlines));
             }
         } catch (SQLException e) {
             throw new DatabaseException("Kunne ikke hente ordre for bruger", e.getMessage());
@@ -56,9 +56,9 @@ public class OrderMapper {
                 int userId = rs.getInt("user_id");
                 BigDecimal totalPrice = rs.getBigDecimal("total_price");
 
-                List<OrderLine> orderLines = getOrderLinesByOrderId(orderId, connection);
+                List<Orderline> orderlines = getOrderLinesByOrderId(orderId, connection);
 
-                orders.add(new Order(orderId, userId, totalPrice, orderLines));
+                orders.add(new Order(orderId, userId, totalPrice, orderlines));
             }
         } catch (SQLException e) {
             throw new DatabaseException("Kunne ikke hente ordre", e.getMessage());
@@ -67,7 +67,7 @@ public class OrderMapper {
         return orders;
     }
 
-    public static void createNewOrder(int userId, List<OrderLine> orderLines, BigDecimal totalPrice, ConnectionPool connectionPool) throws DatabaseException {
+    public static void createNewOrder(int userId, List<Orderline> orderlines, BigDecimal totalPrice, ConnectionPool connectionPool) throws DatabaseException {
         String sqlOrder = "INSERT INTO public.\"orders\" (user_id, total_price) VALUES (?, ?) RETURNING order_id";
         String sqlOrderLine = "INSERT INTO public.\"orderline\" (order_id, bottom_id, topping_id, quantity, price) VALUES (?, ?, ?, ?, ?)";
 
@@ -83,7 +83,7 @@ public class OrderMapper {
             if (rs.next()) {
                 int orderId = rs.getInt("order_id");
 
-                for (OrderLine orderLine : orderLines) {
+                for (Orderline orderLine : orderlines) {
                     psOrderLine.setInt(1, orderId);
                     psOrderLine.setInt(2, orderLine.getBottomId());
                     psOrderLine.setInt(3, orderLine.getToppingId());
@@ -103,10 +103,10 @@ public class OrderMapper {
     }
 
 
-    private static List<OrderLine> getOrderLinesByOrderId(int orderId, Connection connection) throws SQLException {
+    private static List<Orderline> getOrderLinesByOrderId(int orderId, Connection connection) throws SQLException {
         String sql = "SELECT * FROM public.\"orderline\" WHERE order_id = ?";
 
-        List<OrderLine> orderLines = new ArrayList<>();
+        List<Orderline> orderlines = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, orderId);
             ResultSet rs = ps.executeQuery();
@@ -118,10 +118,10 @@ public class OrderMapper {
                 int quantity = rs.getInt("quantity");
                 BigDecimal price = rs.getBigDecimal("price");
 
-                orderLines.add(new OrderLine(orderLineId, orderId, bottomId, toppingId, quantity, price));
+                orderlines.add(new Orderline(orderLineId, orderId, bottomId, toppingId, quantity, price));
             }
         }
 
-        return orderLines;
+        return orderlines;
     }
 }
