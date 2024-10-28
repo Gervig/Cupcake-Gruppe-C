@@ -1,5 +1,20 @@
 -- Drop tables if they exist (this should be run in the correct order due to dependencies)
+-- THIS DELETES THE DB WEE WOO DANGERZONE
+-- Drop OrderLine table first (it references other tables)
+DROP TABLE IF EXISTS OrderLine;
 
+-- Drop Orders table (it references Customers)
+DROP TABLE IF EXISTS Orders;
+
+-- Drop Customers table (it references Cities)
+DROP TABLE IF EXISTS Users;
+
+-- Drop Toppings and Bottoms tables (they don't have foreign key dependencies)
+DROP TABLE IF EXISTS Topping;
+DROP TABLE IF EXISTS Bottom;
+
+-- Drop Cities table (it doesn't reference other tables)
+DROP TABLE IF EXISTS City;
 -- Create the City table
 CREATE TABLE City
 (
@@ -141,3 +156,66 @@ VALUES ('Chocolate', 5.00),
        ('Orange', 8.00),
        ('Lemon', 8.00),
        ('Blue cheese', 9.00);
+
+-- creates a test schema for our test class
+DROP SCHEMA IF EXISTS test_schema CASCADE;
+
+-- Create the test_schema if it doesn't exist
+CREATE SCHEMA IF NOT EXISTS test_schema;
+
+-- Create the City table in the test_schema
+CREATE TABLE IF NOT EXISTS test_schema.City
+(
+    postcode  INTEGER PRIMARY KEY CHECK (postcode >= 1000 AND postcode <= 9999),
+    city_name VARCHAR(50) NOT NULL
+);
+
+-- Create the Users table in the test_schema
+CREATE TABLE IF NOT EXISTS test_schema.Users
+(
+    user_id    SERIAL PRIMARY KEY,
+    first_name VARCHAR(50)         NOT NULL,
+    last_name  VARCHAR(50)         NOT NULL,
+    username   VARCHAR(50) UNIQUE  NOT NULL,
+    email      VARCHAR(100) UNIQUE NOT NULL,
+    password   VARCHAR(255)        NOT NULL,
+    balance    NUMERIC(10, 2) DEFAULT 0.00,
+    postcode   INTEGER             REFERENCES test_schema.City (postcode) ON DELETE SET NULL,
+    role       VARCHAR(20)         NOT NULL CHECK (role IN ('customer', 'admin'))
+);
+
+-- Create the Bottom table in the test_schema
+CREATE TABLE IF NOT EXISTS test_schema.Bottom
+(
+    bottom_id   SERIAL PRIMARY KEY,
+    bottom_name VARCHAR(50)   NOT NULL,
+    price       NUMERIC(5, 2) NOT NULL
+);
+
+-- Create the Topping table in the test_schema
+CREATE TABLE IF NOT EXISTS test_schema.Topping
+(
+    topping_id   SERIAL PRIMARY KEY,
+    topping_name VARCHAR(50)   NOT NULL,
+    price        NUMERIC(5, 2) NOT NULL
+);
+
+-- Create the Orders table in the test_schema
+CREATE TABLE IF NOT EXISTS test_schema.Orders
+(
+    order_id    SERIAL PRIMARY KEY,
+    user_id     INTEGER REFERENCES test_schema.Users (user_id) ON DELETE CASCADE,
+    order_date  TIMESTAMP DEFAULT NOW(),
+    total_price NUMERIC(10, 2) NOT NULL
+);
+
+-- Create the Orderline table in the test_schema
+CREATE TABLE IF NOT EXISTS test_schema.Orderline
+(
+    orderline_id SERIAL PRIMARY KEY,
+    order_id     INTEGER REFERENCES test_schema.Orders (order_id) ON DELETE CASCADE,
+    bottom_id    INTEGER        REFERENCES test_schema.Bottom (bottom_id) ON DELETE SET NULL,
+    topping_id   INTEGER        REFERENCES test_schema.Topping (topping_id) ON DELETE SET NULL,
+    quantity     INTEGER        NOT NULL CHECK (quantity > 0),
+    price        NUMERIC(10, 2) NOT NULL
+);
