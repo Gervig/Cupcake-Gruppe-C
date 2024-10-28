@@ -1,28 +1,41 @@
 @startuml
-object User
-object Cupcakes
-object Toppings
-object Bottoms
-object Login
-object AllOrderList
-object MyOrderList
-object Order
-object StartGame
-object viewUserOrders
-object Admin
-object AddDeposit
 
-Login <--> User
-Login <--> Admin
+Title Domænemodel - Olsker Cupcakes
 
-User <|-- Order
-User <|-- MyOrderList
-Order *-- Cupcakes
-Admin <|-- viewUserOrders
-AllOrderList o-- Admin
-Cupcakes *-- Toppings
-Cupcakes *-- Bottoms
-AddDeposit ..> User
-AddDeposit <|-- Admin
+hide circle
+hide methods
+
+    class User {
+        id
+        username
+        password
+        email
+        address
+    }
+
+    class Order {
+        id
+        Date
+        total Price
+    }
+
+    class Cupcake {
+        quantity
+        price
+    }
+
+    class Bottoms {
+        name
+    }
+
+    class Topping {
+        name
+    }
+
+User "1" -- "0..*" Order : afgiver
+Order "1" -- "1..*" Cupcake : indeholder
+Cupcake "1" -- "1" Bottoms : har
+Cupcake "1" -- "1" Topping : har
+
 
 @enduml
