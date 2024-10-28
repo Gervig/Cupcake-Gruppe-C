@@ -1,23 +1,20 @@
 package app.persistence;
 
-import app.entities.Order;
 import app.entities.Orderline;
+import app.entities.Orders;
 import app.exceptions.DatabaseException;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderMapper {
 
-    public static List<Order> getOrdersByUserId(int userId, ConnectionPool connectionPool) throws DatabaseException {
+    public static List<Orders> getOrdersByUserId(int userId, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "SELECT * FROM public.\"orders\" WHERE user_id = ?";
 
-        List<Order> orders = new ArrayList<>();
+        List<Orders> orders = new ArrayList<>();
 
         try (
                 Connection connection = connectionPool.getConnection();
@@ -28,11 +25,9 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int orderId = rs.getInt("order_id");
+                Timestamp orderDate = rs.getTimestamp("order_date");
                 BigDecimal totalPrice = rs.getBigDecimal("total_price");
-
-                List<Orderline> orderlines = getOrderLinesByOrderId(orderId, connection);
-
-                orders.add(new Order(orderId, userId, totalPrice, orderlines));
+                orders.add(new Orders(orderId, userId, orderDate, totalPrice));
             }
         } catch (SQLException e) {
             throw new DatabaseException("Kunne ikke hente ordre for bruger", e.getMessage());
@@ -41,10 +36,10 @@ public class OrderMapper {
         return orders;
     }
 
-    public static List<Order> getAllOrders(ConnectionPool connectionPool) throws DatabaseException {
+    public static List<Orders> getAllOrders(ConnectionPool connectionPool) throws DatabaseException {
         String sql = "SELECT * FROM public.\"orders\"";
 
-        List<Order> orders = new ArrayList<>();
+        List<Orders> orders = new ArrayList<>();
 
         try (
                 Connection connection = connectionPool.getConnection();
@@ -54,11 +49,10 @@ public class OrderMapper {
             while (rs.next()) {
                 int orderId = rs.getInt("order_id");
                 int userId = rs.getInt("user_id");
+                Timestamp orderDate = rs.getTimestamp("order_date");
                 BigDecimal totalPrice = rs.getBigDecimal("total_price");
 
-                List<Orderline> orderlines = getOrderLinesByOrderId(orderId, connection);
-
-                orders.add(new Order(orderId, userId, totalPrice, orderlines));
+                orders.add(new Orders(orderId, userId, orderDate, totalPrice));
             }
         } catch (SQLException e) {
             throw new DatabaseException("Kunne ikke hente ordre", e.getMessage());

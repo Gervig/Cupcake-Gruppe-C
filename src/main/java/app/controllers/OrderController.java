@@ -1,7 +1,7 @@
 package app.controllers;
 
-import app.entities.Order;
 import app.entities.Orderline;
+import app.entities.Orders;
 import app.entities.User;
 import app.persistence.OrderlineMapper;
 import app.exceptions.DatabaseException;
@@ -23,7 +23,7 @@ public class OrderController {
 
     public static void getAllOrders(Context ctx, ConnectionPool connectionPool) {
         try {
-            List<Order> orders = OrderMapper.getAllOrders(connectionPool);
+            List<Orders> orders = OrderMapper.getAllOrders(connectionPool);
             ctx.attribute("orders", orders);
             ctx.render("/templates/admin_orders.html");
         } catch (DatabaseException e) {
@@ -36,7 +36,7 @@ public class OrderController {
     private static void getOrderById(Context ctx, ConnectionPool connectionPool) {
         try {
             int orderId = Integer.parseInt(ctx.pathParam("id"));
-            List<Order> order = OrderMapper.getOrdersByUserId(orderId, connectionPool);
+            List<Orders> order = OrderMapper.getOrdersByUserId(orderId, connectionPool);
 
             if (order != null) {
                 ctx.attribute("order", order);
