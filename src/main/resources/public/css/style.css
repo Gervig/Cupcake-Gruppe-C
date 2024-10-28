@@ -149,6 +149,12 @@ select{
     margin-right: 2%;
 }
 
+.basket{
+    background-color: rgb(245, 245, 245);
+    border-style: hidden;
+    color: rgb(170, 170, 170);
+}
+
 .shopping-basket-table {
     border-collapse: collapse;
     font-size: 1.2rem;
