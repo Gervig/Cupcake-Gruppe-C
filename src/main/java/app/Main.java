@@ -35,6 +35,8 @@ public class Main
         app.post("/createuser", ctx -> UserController.createUser(ctx, connectionPool));
 
         //Admin side
+        app.get("/admin", ctx -> ctx.render("admin.html"));
+
         app.get("/listOfOrders", ctx -> ctx.render("listOfOrders.html"));
         app.post("/listOfOrders", ctx -> OrderController.getAllOrders(ctx, connectionPool));
 
@@ -42,5 +44,6 @@ public class Main
         app.get("/orderCupcakes", ctx -> ctx.render("orderCupcakes.html"));
 
         UserController.addRoutes(app, connectionPool);
+        OrderController.addRoutes(app, connectionPool);
     }
 }
