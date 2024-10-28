@@ -15,7 +15,8 @@
 </header>
 
 <p>Hej <span th:text="${#ctx.session.currentUser.userName}">Bruger</span>, her kan du se dine ordrer!</p>
-<p th:text="${shoppingBasketMessage}"></p> <!-- Tilføjede message og quantity og price -->
+<p th:text="${shoppingBasketMessage}"></p>
+<!--TODO Mangler nok lidt finere CSS-->
 <table class="shopping-basket-table">
     <tbody>
     <tr th:each="orderline : ${orders}">
@@ -24,6 +25,7 @@
         <td th:text="${orderline.price}">Pris</td>
         <td>
             <form method="post" action="/buy">
+                <!--                TODO få denne button til at ændre status på ordren-->
                 <button type="submit" name="orderlineId" th:value="${orderline.orderlineId}">Køb</button>
             </form>
         </td>
