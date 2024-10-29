@@ -168,9 +168,6 @@ public class ItemMapper
         return (selectedBottom.getPrice().add(selectedTopping.getPrice())).multiply(BigDecimal.valueOf(quantity));
     }
 
-
-
-
     public static Bottoms getBottomById(int bottomId, ConnectionPool connectionPool) throws DatabaseException
     {
         Bottoms bottom = null;
@@ -185,7 +182,10 @@ public class ItemMapper
 
             if (rs.next())
             {
-                bottom = new Bottoms(rs.getInt("id"), rs.getString("name"), rs.getBigDecimal("price"));
+                int id = rs.getInt("bottom_id");
+                String name = rs.getString("bottom_name");
+                BigDecimal price = rs.getBigDecimal("price");
+                bottom = new Bottoms(id, name, price);
             }
 
         } catch (SQLException e)
@@ -209,7 +209,10 @@ public class ItemMapper
             {
                 if (rs.next())
                 {
-                    topping = new Toppings(rs.getInt("id"), rs.getString("name"), rs.getBigDecimal("price"));
+                    int id = rs.getInt("topping_id");
+                    String name = rs.getString("topping_name");
+                    BigDecimal price = rs.getBigDecimal("price");
+                    topping = new Toppings(id, name, price);
                 }
             }
         } catch (SQLException e)
