@@ -16,7 +16,8 @@ import java.util.List;
 public class OrderController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
-        app.get("listOfOrders", ctx -> getAllOrders(ctx, connectionPool));
+//        app.get("/listOfOrders", ctx -> ctx.render("listOfOrders.html"));
+        app.get("/listOfOrders", ctx -> getAllOrders(ctx, connectionPool));
     }
 
     public static void getAllOrders(Context ctx, ConnectionPool connectionPool) {

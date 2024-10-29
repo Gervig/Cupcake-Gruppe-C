@@ -46,11 +46,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="order : ${orders}">
-                <td th:text="${order.order_id}">Order ID</td>
-                <td th:text="${order.user_id}">User ID</td>
+            <tr th:each="orders : ${orders}">
+                <td th:text="${orders.orderId}">Order ID</td>
+                <td th:text="${orders.userId}">User ID</td>
                 <!--                <td th:text="${order.orderDate}">Order date</td>-->
-                <td th:text="${order.total_Price}">Total price</td>
+                <td th:text="${orders.totalPrice}">Total price</td>
 
             </tr>
             </tbody>
