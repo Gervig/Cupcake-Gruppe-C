@@ -1,0 +1,152 @@
+@startuml
+
+Title Cupcake
+
+scale 0.5
+package entities{
+class User {
+    - int userId
+    - String firstName
+    - String lastName
+    - String userName
+    - String email
+    - String password
+    - BigDecimal balance
+    - int postcode
+    - String role
+    + User(int, String, String, String, String, String, BigDecimal, int, String)
+    + int getUserId()
+    + String getUserName()
+    + String getPassword()
+    + String getRole()
+    + String getFirstName()
+    + String getLastName()
+    + String getEmail()
+    + BigDecimal getBalance()
+    + int getPostcode()
+    + void setBalance(BigDecimal)
+    + String toString()
+}
+
+class Orderline {
+    - int orderlineId
+    - int orderId
+    - int bottomId
+    - int toppingId
+    - int quantity
+    - BigDecimal price
+    + Orderline(int, int, int, int, int, BigDecimal)
+    + int getOrderlineId()
+    + int getOrderId()
+    + int getBottomId()
+    + int getToppingId()
+    + int getQuantity()
+    + BigDecimal getPrice()
+}
+
+class Orders {
+    - int orderId
+    - int userId
+    - Timestamp orderDate
+    - BigDecimal totalPrice
+    + Orders(int, int, Timestamp, BigDecimal)
+    + int getOrderId()
+    + int getUserId()
+    + Timestamp getOrderDate()
+    + BigDecimal getTotalPrice()
+}
+
+class Bottoms {
+    - int bottomId
+    - String bottomName
+    + Bottoms(int, String)
+}
+
+class Toppings {
+    - int toppingId
+    - String toppingName
+    + Toppings(int, String)
+    }
+}
+package Persistence{
+class ConnectionPool {
+    - static ConnectionPool instance
+    - static HikariDataSource ds
+    + static ConnectionPool getInstance(String, String, String, String)
+    + synchronized Connection getConnection()
+    + synchronized void close()
+}
+
+
+class UserMapper {
+    + static User login(String, String, ConnectionPool) throws DatabaseException
+    + static void createUser(String, String, String, String, String, BigDecimal, int, ConnectionPool) throws DatabaseException
+    + static List<User> getAllUsers(ConnectionPool) throws DatabaseException
+    + static void updateUserBalance(int, BigDecimal, ConnectionPool) throws DatabaseException
+}
+
+class OrderlineMapper {
+    + static List<Orderline> getAllOrderlinePerUser(int, ConnectionPool) throws DatabaseException
+}
+
+
+
+class OrdersMapper {
+    + static List<Orders> getOrdersByUserId(int, ConnectionPool) throws DatabaseException
+    + static List<Orders> getAllOrders(ConnectionPool) throws DatabaseException
+    + static void createNewOrder(int, List<Orderline>, BigDecimal, ConnectionPool) throws DatabaseException
+}
+}
+
+package controllers{
+class OrderController {
+    + static void getAllOrders(Context, ConnectionPool)
+    + static void addRoutes(Javalin, ConnectionPool)
+}
+
+class UserController {
+    + static void login(Context, ConnectionPool)
+    + static void createUser(Context, ConnectionPool)
+    + static void addRoutes(Javalin, ConnectionPool)
+}
+}
+
+class Main {
+    - static final String USER
+    - static final String PASSWORD
+    - static final String URL
+    - static final String DB
+    - static final ConnectionPool connectionPool
+    + static void main(String[])
+}
+
+package Exceptions{
+class DatabaseException{
+    +DatabaseException(String)
+    +DatabaseException(String, String)
+}
+}
+
+
+Orders "1" *-- "*" Orderline : contains
+Orders "*" *-- "1" User : can have
+Bottoms "1" --* "1" Orderline : skal indholdes i
+Toppings "1" --* "1" Orderline : skal indholdes i
+UserMapper -- User : maps
+OrderlineMapper -- Orderline : maps
+OrdersMapper -- Orders : maps
+OrderController -- Orders : controls
+OrderController -- OrdersMapper : interacts with
+UserController -- UserMapper : uses
+UserController -- User : controls
+Main -- ConnectionPool : initializes
+ConnectionPool --  UserMapper : provides connections
+ConnectionPool --  OrderlineMapper : provides connections
+ConnectionPool --  OrdersMapper : provides connections
+OrderController -- Exceptions : uses
+UserController -- Exceptions : uses
+OrderlineMapper -- Exceptions : uses
+OrdersMapper -- Exceptions : uses
+UserMapper -- Exceptions : uses
+
+@enduml
