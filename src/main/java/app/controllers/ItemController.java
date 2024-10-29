@@ -34,13 +34,32 @@ public class ItemController
         });
         app.post("/createOrderLine", ctx -> {
             User user = ctx.sessionAttribute("currentUser");
-            int userId = user.getUserId(); // Assume you have a way to get the current user's ID.
-            int bottomId = Integer.parseInt(ctx.formParam("bottom"));
-            int toppingId = Integer.parseInt(ctx.formParam("topping"));
-            int quantity = Integer.parseInt(ctx.formParam("quantity"));
-            // Call method to create the Orderline without additional try-catch
-            ItemMapper.createOrderLine(bottomId, toppingId, quantity, userId, connectionPool);
+            if (user == null) {
+                ctx.attribute("message", "You need to log in to add items to your cart.");
+                ctx.render("login.html"); // Redirect to login if user is not logged in
+                return; // Exit the handler
+            }
+
+            try {
+                int userId = user.getUserId();
+                int bottomId = Integer.parseInt(ctx.formParam("bottom")); // Match the HTML input names
+                int toppingId = Integer.parseInt(ctx.formParam("topping"));
+                int quantity = Integer.parseInt(ctx.formParam("quantity"));
+
+                // Call method to create the Orderline
+                ItemMapper.createOrderLine(bottomId, toppingId, quantity, userId, connectionPool);
+
+                ctx.attribute("message", "Order line added successfully!");
+                ctx.redirect("/orderCupcakes"); // Redirect back to the order page to see the updated cart
+            } catch (NumberFormatException e) {
+                ctx.attribute("message", "Invalid input. Please ensure all fields are filled correctly.");
+                ctx.render("orderCupcakes.html"); // Re-render the page with the message
+            } catch (DatabaseException e) {
+                ctx.attribute("message", "Failed to add order line: " + e.getMessage());
+                ctx.render("orderCupcakes.html"); // Re-render with error message
+            }
         });
+
     }
 
     public static void createOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException

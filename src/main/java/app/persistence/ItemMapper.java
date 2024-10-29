@@ -121,7 +121,7 @@ public class ItemMapper
 
     private static int findActiveOrderId(Connection connection, int userId) throws DatabaseException
     {
-        String sql = "INSERT INTO public.Orderline (order_id, bottom_id, topping_id, quantity, price) VALUES (?, ?, ?, ?, ?)";
+        String sql = "SELECT * FROM orders WHERE user_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(sql))
         {
