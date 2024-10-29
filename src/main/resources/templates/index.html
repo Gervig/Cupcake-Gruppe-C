@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>Frontpage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
+
 <body>
 
+<header>
+    <a href="index.html" th:href="@{/}">
+        <img alt="logo" src="../public/images/headerImage.png" th:src="@{/images/headerImage.png}"/>
+    </a>
+</header>
+<div class="page-content">
+    <h1>Velkommen Ombord</h1>
+    <div class="flexbox-container1">
+        <div class="flexbox-item flexbox-item-5">
+            <a href="login.html" th:href="@{login}" th:style="'color: rgb(52, 28, 92)'" class="button"/>Login</a>
+        </div>
+        <div class="flexbox-item flexbox-item-5">
+            <a href="createUser.html" th:href="@{createuser}" th:style="'color: rgb(52, 28, 92)'" class="button"/>Opret
+            bruger</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+
+

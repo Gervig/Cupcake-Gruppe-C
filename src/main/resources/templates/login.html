@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>Frontpage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" th:href="@{/}">
+            <img alt="logo" src="public/images/headerImage.png" th:src="@{images/headerImage.png}"/>
+        </a>
+    </header>
+    <div class="page-content">
+    <h1>Log på</h1>
+        <div class="buttons">
+            <form method="post">
+                <input type="email" name="email" placeholder="Email"/>
+                <input type="password" name="password" placeholder="Kodeord"/>
+                <button type="submit" formaction="/login">Log på</button>
+                <p class="errormessage" th:text="${#ctx.message}"th:style="'color: red'"></p>
+            </form>
+        </div>
+        <div class="flexbox-container1">
+        <div class="flexbox-item flexbox-item-lt-btn">
+            <a href="createUser.html" th:href="@{createuser}"class="button"/>Opret bruger</a>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

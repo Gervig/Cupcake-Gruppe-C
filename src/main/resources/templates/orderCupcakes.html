@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>Frontpage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../public/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" th:href="@{/}">
+        <img alt="logo" src="../public/images/headerImage.png" th:src="@{/images/headerImage.png}"/>
+    </a>
+</header>
+<div class="toolbar">
+    <div class="flexbox-container">
+        <div class="flexbox-item flexbox-item-1">
+            <!--Change the h-ref with listOfOrders            -->
+            <a href="listOfCupcakes.html" th:href="@{listOfCupcakes}"
+               th:style="'color: rgb(170, 170, 170)'"/>Cupcakes</a>
+        </div>
+        <div class="flexbox-item flexbox-item-2">
+            <!--Change the h-ref with something to do for the profile            -->
+            <a href="login.html" th:href="@{login}" th:style="'color: rgb(170, 170, 170)'"/>Din profil</a>
+        </div>
+        <!--Change the E-mail with placeholder            -->
+        <div class="flexbox-item flexbox-item-3">E-mail</div>
+        <div class="flexbox-item flexbox-item-4">
+            <button class="basket" onclick="window.location.href='shoppingBasket'"><span class="material-symbols-outlined">shopping_basket</span></a></button>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <h1>Velkommen Ombord</h1>
+    <h2>Øens bedste cupcakes</h2>
+
+    <form method="post" action="/createOrderLine">
+        <label for="bottom">Bottom:</label>
+        <select name="bottom" id="bottom" required>
+            <option th:each="bottom : ${bottomsList}" th:value="${bottom.bottomsID}" th:text="${bottom.bottomName}"></option>
+        </select>
+
+        <label for="topping">Topping:</label>
+        <select name="topping" id="topping" required>
+            <option th:each="topping : ${toppingsList}" th:value="${topping.toppingsID}" th:text="${topping.toppingName}"></option>
+        </select>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" min="1" required>
+
+        <button type="submit">Tilføj til kurv</button>
+    </form>
+
+
+</div>
+</body>
+</html>
