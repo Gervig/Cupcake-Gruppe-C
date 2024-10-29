@@ -50,6 +50,21 @@ button[type=submit]:hover{
     background-color: rgb(170, 170, 170);
 }
 
+.smallbutton{
+    margin: 1%;
+    padding: 0.5%;
+    border-radius: 8px;
+    font-family: Arial;
+    background-color: rgb(200, 200, 200);
+    border-style: hidden;
+    color: rgb(52, 28, 92);
+    white-space: nowrap;
+}
+
+.smallbutton:hover{
+    background-color: rgb(170, 170, 170);
+}
+
 .button {
     display: inline-block;
     padding: 8px;
@@ -172,7 +187,7 @@ thead {
     color: white;
 }
 
-
+/*Shoppingbasket icon*/
 .basket{
     background-color: rgb(245, 245, 245);
     border-style: hidden;
@@ -193,17 +208,21 @@ thead {
     background-color: silver;
 }
 
-
-.shopping-basket-table {
-    border-collapse: collapse;
-    font-size: 1.2rem;
+/*Table for list of cupcakes*/
+.flexbox-item-table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
 }
 
-.shopping-basket-table td, .task-table th{
-    border: 1px solid #ddd;
-    padding: 10px;
-}
-
-.shopping-basket-table tr:nth-child(even){
-    background-color: silver;
+.listOfCupcakes{
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2%;
+    border-radius: 8px;
+    font-size: large;
+    font-family: Arial;
+    white-space: nowrap;
 }

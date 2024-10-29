@@ -20,7 +20,7 @@
             <form method="post">
                 <input type="email" name="email" placeholder="Email"/>
                 <input type="password" name="password" placeholder="Kodeord"/>
-                <button type="submit" formaction="/login">Log på</button>
+                <a href="orderCupcakes.html" th:href="@{orderCupcakes}" class="smallbutton" style="color: rgb(52, 28, 92);">Log på</a>
                 <p class="errormessage" th:text="${#ctx.message}"th:style="'color: red'"></p>
             </form>
         </div>

@@ -1,12 +1,14 @@
 package app.entities;
 
+import java.math.BigDecimal;
+
 public class Toppings
 {
     private int toppingsID;
     private String toppingsName;
-    private float price;
+    private BigDecimal price;
 
-    public Toppings(int toppingsID, String toppingsName, float price)
+    public Toppings(int toppingsID, String toppingsName, BigDecimal price)
     {
         this.toppingsID = toppingsID;
         this.toppingsName = toppingsName;
@@ -18,12 +20,12 @@ public class Toppings
         return toppingsID;
     }
 
-    public String getToppingsName()
+    public String getToppingName()
     {
         return toppingsName;
     }
 
-    public float getPrice()
+    public BigDecimal getPrice()
     {
         return price;
     }
