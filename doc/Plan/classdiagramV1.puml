@@ -1,113 +1,152 @@
 @startuml
-'https://plantuml.com/class-diagram
-package java{
-package app{
-class Main{}
 
-package config{
-class ThymeleafConfig{
-+templateEngine()
+Title Cupcake
+
+scale 0.5
+package entities{
+class User {
+    - int userId
+    - String firstName
+    - String lastName
+    - String userName
+    - String email
+    - String password
+    - BigDecimal balance
+    - int postcode
+    - String role
+    + User(int, String, String, String, String, String, BigDecimal, int, String)
+    + int getUserId()
+    + String getUserName()
+    + String getPassword()
+    + String getRole()
+    + String getFirstName()
+    + String getLastName()
+    + String getEmail()
+    + BigDecimal getBalance()
+    + int getPostcode()
+    + void setBalance(BigDecimal)
+    + String toString()
+}
+
+class Orderline {
+    - int orderlineId
+    - int orderId
+    - int bottomId
+    - int toppingId
+    - int quantity
+    - BigDecimal price
+    + Orderline(int, int, int, int, int, BigDecimal)
+    + int getOrderlineId()
+    + int getOrderId()
+    + int getBottomId()
+    + int getToppingId()
+    + int getQuantity()
+    + BigDecimal getPrice()
+}
+
+class Orders {
+    - int orderId
+    - int userId
+    - Timestamp orderDate
+    - BigDecimal totalPrice
+    + Orders(int, int, Timestamp, BigDecimal)
+    + int getOrderId()
+    + int getUserId()
+    + Timestamp getOrderDate()
+    + BigDecimal getTotalPrice()
+}
+
+class Bottoms {
+    - int bottomId
+    - String bottomName
+    + Bottoms(int, String)
+}
+
+class Toppings {
+    - int toppingId
+    - String toppingName
+    + Toppings(int, String)
+    }
+}
+package Persistence{
+class ConnectionPool {
+    - static ConnectionPool instance
+    - static HikariDataSource ds
+    + static ConnectionPool getInstance(String, String, String, String)
+    + synchronized Connection getConnection()
+    + synchronized void close()
+}
+
+
+class UserMapper {
+    + static User login(String, String, ConnectionPool) throws DatabaseException
+    + static void createUser(String, String, String, String, String, BigDecimal, int, ConnectionPool) throws DatabaseException
+    + static List<User> getAllUsers(ConnectionPool) throws DatabaseException
+    + static void updateUserBalance(int, BigDecimal, ConnectionPool) throws DatabaseException
+}
+
+class OrderlineMapper {
+    + static List<Orderline> getAllOrderlinePerUser(int, ConnectionPool) throws DatabaseException
+}
+
+
+
+class OrdersMapper {
+    + static List<Orders> getOrdersByUserId(int, ConnectionPool) throws DatabaseException
+    + static List<Orders> getAllOrders(ConnectionPool) throws DatabaseException
+    + static void createNewOrder(int, List<Orderline>, BigDecimal, ConnectionPool) throws DatabaseException
 }
 }
 
 package controllers{
-class OrderController{
-+static void addRoutes()
--static void addOrder()
--static void showOrder()
--static void index()
--static OrderItem addOrderItem()
-
-}
-class UserController{
-+static void AddRoutes()
--static void createuser()
--static void logout()
-+static void login()
+class OrderController {
+    + static void getAllOrders(Context, ConnectionPool)
+    + static void addRoutes(Javalin, ConnectionPool)
 }
 
-}
-
-package entities{
-class Bottoms{
--int bottomsID
--String bottoms
--float price
-+int getBottomsID()
-+String getBottoms()
-+Float getPrice()
-}
-class Toppings{
--int toppingID
--String toppings
--float price
-+int getToppingID()
-+String getToppings()
-+Float getPrice()
-}
-class User{
--int userID
--String userName
--String email
--String password
--String role
--float balance
-+int getUserID()
-+String getUserName()
-+String getEmail()
-+String getPassword()
-+String getRole()
-+float getBalance()
-+float addToBalance()
-+float setBalance()
+class UserController {
+    + static void login(Context, ConnectionPool)
+    + static void createUser(Context, ConnectionPool)
+    + static void addRoutes(Javalin, ConnectionPool)
 }
 }
 
-package exceptions{
-class DatabaseException{}
+class Main {
+    - static final String USER
+    - static final String PASSWORD
+    - static final String URL
+    - static final String DB
+    - static final ConnectionPool connectionPool
+    + static void main(String[])
 }
 
-package persistence{
-class ConnectionPool{
--ConnectionPool()
-+getInstance()
-+getConnection()
--createHikrariConnectionPool()
-}
-class UserMapper{
-+static User login()
-+static void createuser()
-}
-class OrderItemMapper{
-+static getBottomsAndToppings
-}
-class OrderMapper{
-+static getOrdersPerUser()
-+static getAllOrders()
-+static void newOrder()
-}
-}
+package Exceptions{
+class DatabaseException{
+    +DatabaseException(String)
+    +DatabaseException(String, String)
 }
 }
 
-package resources{
-package public{
-package css{
-object style
-}
-package images{}
-}
-package sql{
-}
-package templates{
-object index
-object createuser
-object login
-object orderCupcakes
-object seeOrders
-object orderedCupcakes
-}
-}
-}
+
+Orders "1" *-- "*" Orderline : contains
+Orders "*" *-- "1" User : can have
+Bottoms "1" --* "1" Orderline : skal indholdes i
+Toppings "1" --* "1" Orderline : skal indholdes i
+UserMapper -- User : maps
+OrderlineMapper -- Orderline : maps
+OrdersMapper -- Orders : maps
+OrderController -- Orders : controls
+OrderController -- OrdersMapper : interacts with
+UserController -- UserMapper : uses
+UserController -- User : controls
+Main -- ConnectionPool : initializes
+ConnectionPool --  UserMapper : provides connections
+ConnectionPool --  OrderlineMapper : provides connections
+ConnectionPool --  OrdersMapper : provides connections
+OrderController -- Exceptions : uses
+UserController -- Exceptions : uses
+OrderlineMapper -- Exceptions : uses
+OrdersMapper -- Exceptions : uses
+UserMapper -- Exceptions : uses
 
 @enduml
