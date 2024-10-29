@@ -40,39 +40,23 @@
     <h1>Velkommen Ombord</h1>
     <h2>Øens bedste cupcakes</h2>
 
-    <form>
-        <div>
-            <select name="bottom" id="bottom" required>
-                <option value="" disabled selected>Vælg bund</option>
-                <option th:each="bottom : ${bottomsList}" th:value="${bottom.getBottomsID}" th:text="${bottom.getBottomName}"></option>
-            </select>
+    <form method="post" action="/createOrderLine">
+        <label for="bottom">Bottom:</label>
+        <select name="bottom" id="bottom" required>
+            <option th:each="bottom : ${bottomsList}" th:value="${bottom.bottomsID}" th:text="${bottom.bottomName}"></option>
+        </select>
 
+        <label for="topping">Topping:</label>
+        <select name="topping" id="topping" required>
+            <option th:each="topping : ${toppingsList}" th:value="${topping.toppingsID}" th:text="${topping.toppingName}"></option>
+        </select>
 
-            <select name="topping" id="topping" required>
-                <option value="" disabled selected>Vælg topping</option>
-                <option th:each="topping : ${toppingsList}" th:value="${topping.getToppingsID}" th:text="${topping.getToppingName}"></option>
-            </select>
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" min="1" required>
 
-
-            <select name="amount" id="antal" required>
-                <option value="" disabled selected>Vælg antal</option>
-                <option value="4">4</option>
-                <option value="6">6</option>
-                <option value="8">8</option>
-                <option value="12">12</option>
-                <option value="16">16</option>
-                <option value="20">20</option>
-            </select>
-        </div>
-        <!--
-            <button type="submit" formaction="/done" th:value="${orderItem.orderItem_id}">Tilføj til kurv</button>
-        -->
-        <!--<button type="submit" formaction="index.html">
-            Tilføj til kurv
-            <a href="index.html" th:href="@{/}">
-            </a></button>-->
-        <button type="submit"<a href="orderCupcakes.html" th:href="@{orderCupcakes}" class="button" style="color: rgb(52, 28, 92);">Tilføj til kurv </a></button>
+        <button type="submit">Tilføj til kurv</button>
     </form>
+
 
 </div>
 </body>
