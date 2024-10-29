@@ -19,9 +19,13 @@ public class ItemController
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool)
     {
-        app.get("orderCupcakes", ctx -> {
-            getBottomNames(ctx, connectionPool);
-            getToppingsNames(ctx, connectionPool);
+        app.get("/orderCupcakes", ctx -> {
+            List<Bottoms> bottomsList = ItemMapper.getBottoms(connectionPool);
+            List<Toppings> toppingsList = ItemMapper.getToppings(connectionPool);
+
+            ctx.attribute("bottomsList", bottomsList);
+            ctx.attribute("toppingsList", toppingsList);
+            ctx.render("orderCupcakes.html");
         });
         app.get("listOfCupcakes", ctx -> {
             getBottomNames(ctx, connectionPool);
