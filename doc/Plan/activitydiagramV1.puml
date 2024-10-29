@@ -1,0 +1,30 @@
+@startuml
+title Activity Diagram - Olsker Cupcakes
+scale 1.5
+start
+:User visits the cupcake website (Velkommen Ombord));
+
+if (User is registered?) then (yes)
+    repeat :Login using username and password;
+    label sp_lab2
+    label sp_lab1
+    repeat while (Login successful?) is (No) not (Yes)
+
+
+        repeat
+            :User selects cupcake options and quantity;
+            :Calculate total price;
+            :User adds cupcakes to cart;
+        repeat while (Ready to checkout?) is (No) not (Yes)
+                :User reviews order;
+                :Confirm and create order;
+                :Reduce user balance and update database;
+                :Display order confirmation;
+                stop
+else (no)
+    :User registers;
+    goto sp_lab1
+endif
+
+
+@enduml
