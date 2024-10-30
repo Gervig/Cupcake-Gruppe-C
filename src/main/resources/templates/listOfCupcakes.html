@@ -20,44 +20,45 @@
 </div>
 
 <div class="page-content">
-    <h1>Typer af toppe og bunde</h1>
+    <h1>Siden kommer snart</h1>
 
-    <p th:if="${message}" th:text="${message}" class="error-message"></p>
-    <div class="table-container">
-    <div class="flexbox-item-table">
-        <table id="listOfBottomsTable">
-            <thead>
-            <tr>
-                <th class="listOfCupcakes">Bunde</th>
-                <th class="listOfCupcakes">Pris</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="bottom : ${bottoms}">
-                <td class="listOfCupcakes"th:text="${bottom.bottomsName}">Type</td>
-                <td class="listOfCupcakes"th:text="${bottom.bottomsPrice}">Pris</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<!--    <p th:if="${message}" th:text="${message}" class="error-message"></p>-->
+<!--    <div class="table-container">-->
+<!--    <div class="flexbox-item-table">-->
+<!--        <table id="listOfBottomsTable">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th class="listOfCupcakes">Bunde</th>-->
+<!--                <th class="listOfCupcakes">Pris</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="bottom : ${bottoms}">-->
+<!--                <td class="listOfCupcakes"th:text="${bottom.bottomsName}">Type</td>-->
+<!--                <td class="listOfCupcakes"th:text="${bottom.bottomsPrice}">Pris</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
 
-    <div class="flexbox-item-table">
-        <table id="listOfToppingsTable">
-            <thead>
-            <tr>
-                <th>Topping</th>
-                <th>Pris</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="topping : ${toppings}">
-                <td class="listOfCupcakes" th:text="${topping.toppings}">Type</td>
-                <td class="listOfCupcakes" th:text="${topping.toppings}">Pris</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    </div>
+<!--    <div class="flexbox-item-table">-->
+<!--        <table id="listOfToppingsTable">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Topping</th>-->
+<!--                <th>Pris</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="topping : ${toppings}">-->
+<!--                <td class="listOfCupcakes" th:text="${topping.toppings}">Type</td>-->
+<!--                <td class="listOfCupcakes" th:text="${topping.toppings}">Pris</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--    </div>-->
+
     <div class="flexbox-container1">
         <div class="flexbox-item flexbox-item-lt-btn">
             <a href="orderCupcakes.html" th:href="@{orderCupcakes}"class="button" th:style="'color:rgb(52, 28, 92)'"/>Tilbage</a>
