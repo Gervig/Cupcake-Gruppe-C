@@ -41,22 +41,23 @@
     <h2>Øens bedste cupcakes</h2>
 
     <form method="post" action="/createOrderLine">
-        <label for="bottom">Bottom:</label>
+        <label for="bottom"></label>
         <select name="bottom" id="bottom" required>
+            <option value="" disabled selected>Vælg bund</option>
             <option th:each="bottom : ${bottomsList}" th:value="${bottom.bottomsID}" th:text="${bottom.bottomName}"></option>
         </select>
 
-        <label for="topping">Topping:</label>
+        <label for="topping"></label>
         <select name="topping" id="topping" required>
+            <option value="" disabled selected>Vælg topping</option>
             <option th:each="topping : ${toppingsList}" th:value="${topping.toppingsID}" th:text="${topping.toppingName}"></option>
         </select>
 
-        <label for="quantity">Quantity:</label>
-        <input type="number" name="quantity" id="quantity" min="1" required>
+        <label for="quantity"></label>
+        <input type="number" name="quantity" id="quantity" min="1" max="20" required>
 
         <button type="submit">Tilføj til kurv</button>
     </form>
-
 
 </div>
 </body>
