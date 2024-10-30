@@ -100,11 +100,11 @@ public class ItemMapper
 
             } catch (SQLException e)
             {
-                throw new DatabaseException("Der skete en fejl ved læsning af databasen, kontakt Casper", e.getMessage());
+                throw new DatabaseException("Der skete en fejl ved læsning af databasen", e.getMessage());
             }
         } catch (SQLException e)
         {
-            throw new DatabaseException("Der skete en fejl, database goes brrr. Kontakt Casper", e.getMessage());
+            throw new DatabaseException("Der skete en fejl med orderlinjen", e.getMessage());
         }
     }
 
@@ -135,7 +135,7 @@ public class ItemMapper
             }
         } catch (SQLException e)
         {
-            throw new DatabaseException("Der kunne ikke oprettes forbindelse til din ordre. Kontakt Casper", e.getMessage());
+            throw new DatabaseException("Der kunne ikke oprettes forbindelse til din ordre.", e.getMessage());
         }
         return -1;
     }
@@ -157,7 +157,7 @@ public class ItemMapper
                 }
             }
         }
-        throw new SQLException("Ring til Hjælper Hotline på 50 10 43 82");
+        throw new SQLException("Der skete en fejl ved oprettelse af ordren, prøv igen senere");
     }
 
 
