@@ -13,25 +13,42 @@
         <img alt="logo" src="../public/images/headerImage.png" th:src="@{/images/headerImage.png}"/>
     </a>
 </header>
+<div class="page-content">
+    <h1>Hej <span th:text="${#ctx.session.currentUser.userName}">Bruger</span></h1>
+    <p th:text="${shoppingBasketMessage}"></p>
+    <!--TODO Mangler nok lidt finere CSS-->
+    <div class="table-container">
+    <table class="shopping-basket-table">
+        <thead>
+        <tr>
+            <th>Orderline</th>
+            <th>Antal</th>
+            <th>Pris</th>
+            <th>Køb</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orderline : ${orders}">
+            <td th:text="${orderline.orderlineId}">ID på din ordre</td>
+            <td th:text="${orderline.quantity}">Antal</td>
+            <td th:text="${orderline.price}">Pris</td>
+            <td>
+                <form method="post" action="/buy">
+                    <!--                TODO få denne button til at ændre status på ordren-->
+                    <button type="submit" name="orderlineId" th:value="${orderline.orderlineId}">Køb</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
 
-<p>Hej <span th:text="${#ctx.session.currentUser.userName}">Bruger</span>, her kan du se dine ordrer!</p>
-<p th:text="${shoppingBasketMessage}"></p>
-<!--TODO Mangler nok lidt finere CSS-->
-<table class="shopping-basket-table">
-    <tbody>
-    <tr th:each="orderline : ${orders}">
-        <td th:text="${orderline.orderlineId}">ID på din ordre</td>
-        <td th:text="${orderline.quantity}">Antal</td>
-        <td th:text="${orderline.price}">Pris</td>
-        <td>
-            <form method="post" action="/buy">
-                <!--                TODO få denne button til at ændre status på ordren-->
-                <button type="submit" name="orderlineId" th:value="${orderline.orderlineId}">Køb</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <div class="flexbox-container1">
+        <div class="flexbox-item flexbox-item-lt-btn">
+            <a href="orderCupcakes.html" th:href="@{orderCupcakes}"class="button" th:style="'color:rgb(52, 28, 92)'"/>Bestil cupcakes</a>
+        </div>
+    </div>
 
+</div>
 </body>
 </html>
